@@ -1,0 +1,104 @@
+# $FreeBSD$
+#
+#  This file is read when going to multi-user and its contents piped thru
+#  ``sysctl'' to adjust kernel values.  ``man 5 sysctl.conf'' for details.
+#
+
+#################################################################################
+## Opciones básicas para FreeBSD
+
+# Uncomment this to prevent users from seeing information about processes that
+# are being run under another UID.
+security.bsd.see_other_uids=0
+security.bsd.see_other_gids=0
+security.bsd.see_jail_proc=0
+
+# Denegando accesoa a dmesg y debug process
+security.bsd.unprivileged_read_msgbuf=0
+security.bsd.unprivileged_proc_debug=0
+
+# Aleatorización de los pids
+kern.randompid=1000
+
+# Activando ASLR/PIE en FreeBSD 13.x
+kern.elf32.aslr.enable=1
+kern.elf32.aslr.pie_enable=1
+kern.elf32.aslr.honor_sbrk=0
+kern.elf64.aslr.enable=1
+kern.elf64.aslr.pie_enable=1
+kern.elf64.aslr.honor_sbrk=0
+
+# Optimización para desktop usando ZFS
+vfs.zfs.min_auto_ashift=12
+
+# Hardening básico
+security.bsd.stack_guard_page=1                 # Stack Guard Page activo
+security.bsd.map_at_zero=0                      # No permite el mapeo de mmap() a NULL page
+security.bsd.hardlink_check_uid=1               # Chequeo de hardlinks (TOCTOU)
+security.bsd.hardlink_check_gid=1               # Chequeo de hardlinks (TOCTOU)
+
+#################################################################################
+## Seguridad IP
+
+net.inet.tcp.blackhole=2                        # Blackhole TCP
+net.inet.udp.blackhole=1                        # Blackhole UDP
+net.inet.icmp.drop_redirect=1                   # Drop redirects
+net.inet.ip.redirect=0                          # Redirects desactivados
+net.inet.ip.sourceroute=0                       # Source route desactivados
+net.inet.ip.accept_sourceroute=0                # No acepta source routes
+net.inet.icmp.bmcastecho=0                      # Echo broadcast desactivado
+net.inet.icmp.maskrepl=0                        # Maskprepl desactivado
+net.inet.icmp.log_redirect=0                    # Loguea drops
+net.inet.icmp.drop_redirect=1                   # Drop de ICMP
+net.inet.tcp.drop_synfin=1                      # Drop de SYN FIN
+net.inet.ip.random_id=1                         # Asignacion aleatorio de ID IP
+net.inet.ip.check_interface=1 
+net.inet.ip.process_options=0
+net.inet.tcp.nolocaltimewait=1
+net.inet.tcp.icmp_may_rst=0
+net.inet.tcp.path_mtu_discovery=0 
+
+# IPv6 Security
+# Desactiva varias opciones de IPv6
+
+net.inet6.icmp6.nodeinfo=0
+net.inet6.ip6.use_tempaddr=1
+net.inet6.ip6.prefer_tempaddr=1
+net.inet6.icmp6.rediraccept=0
+net.inet6.ip6.accept_rtadv=0
+net.inet6.ip6.auto_linklocal=0
+net.inet6.ip6.redirect=0
+
+#################################################################################
+## Tweaks para el sistema
+
+kern.sched.preempt_thresh=200                   # Preemptiness for kernel
+kern.ipc.shm_allow_removed=1                    # Permite la remoción de memoria en shm
+vfs.usermount=1                                 # Automontaje para usuarios
+kern.timecounter.hardware=HPET                  # Activamos HPET
+vfs.read_max=128                                # VFS a 128 para mejorar rendimiento en HDD
+
+# Akonadi y daemons con alto trafico en local streams
+net.local.stream.recvspace=65536
+net.local.stream.sendspace=65536
+
+# Incrementamos el buffer TCP, util para redes lentas
+net.inet.tcp.recvbuf_max=8388608
+net.inet.tcp.sendbuf_max=8388608
+
+# Bhyve conf
+net.link.tap.up_on_open=1
+net.link.bridge.ipfw=0
+net.link.bridge.pfil_bridge=0
+net.link.bridge.pfil_member=0
+
+# Fortuna pseudo-random system
+kern.random.fortuna.minpoolsize=128
+
+# Audio default
+hw.snd.default_unit=4
+
+# Audio equalizer
+# Aplicado al PCM por defecto (built-in sound-card)
+dev.pcm.4.eq=1
+dev.pcm.5.eq=1
