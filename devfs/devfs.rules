@@ -1,11 +1,6 @@
-[devfsrules_common=7]
-add path 'da[0-9]\*'    mode 660 group operator
-add path 'acd[0-9]\*'   mode 660 group operator
-add path 'cd[0-9]\*'    mode 660 group operator
-add path 'pass[4-9]\*'  mode 660 group operator
-add path 'xpt[0-9]\*'   mode 660 group operator
-add path 'ugen[0-9]\*'  mode 660 group operator
-add path 'usbctl'       mode 660 group operator
-add path 'usb/\*'       mode 660 group operator
-add path tun0		mode 660 group openvpn
-add path tun1		mode 660 group openvpn
+[devfsrules_common=10]
+# Acceso a USB
+add path 'da[0-9]\*' mode 0660
+add path 'ugen[0-9]\*' mode 0660
+add path 'usbctl' mode 0660
+add path 'usb/\*' mode 0660

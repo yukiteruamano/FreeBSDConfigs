@@ -6,8 +6,8 @@
 
 ;; Some functionality uses this to identify you, e.g. GPG configuration, email
 ;; clients, file templates and snippets. It is optional.
-(setq user-full-name "Jose Maldonado <Yukiteru>"
-      user-mail-address "josemald89@gmail.com")
+(setq user-full-name "José Maldonado aka Yukiteru Amano"
+      user-mail-address "yukiteruamano@tutanota.com")
 
 ;; Doom exposes five (optional) variables for controlling fonts in Doom:
 ;;
@@ -22,7 +22,7 @@
 ;; accept. For example:
 ;;
 (setq doom-font (font-spec :family "Fira Code" :size 10 :weight 'semi-light)
-      doom-variable-pitch-font (font-spec :family "Fira Sans" :size 13))
+      doom-variable-pitch-font (font-spec :family "Fira Sans" :size 11))
 ;;
 ;; If you or Emacs can't find your font, use 'M-x describe-font' to look them
 ;; up, `M-x eval-region' to execute elisp code, and 'M-x doom/reload-font' to
@@ -75,10 +75,13 @@
 ;; You can also try 'gd' (or 'C-c c d') to jump to their definition and see how
 ;; they are implemented.
 
-(after! ccls
-  (setq ccls-initialization-options '(:index (:comments 2) :completion (:detailedLabel t)))
-  (set-lsp-priority! 'ccls 2)) ; optional as ccls is the default in Doom
+;; Eglot
+(set-eglot-client! '(c-mode cc-mode c++-mode) '("clangd15" 
+	"-j=4"
+	"--log=error"
+        "--background-index"
+        "--clang-tidy"
+        "--completion-style=detailed"
+        "--header-insertion=never"
+        "--header-insertion-decorators=0"))
 
-(use-package doom-snippets
-  :load-path "/home/yukiteru/.doom.d/snippets"
-  :after yasnippet)

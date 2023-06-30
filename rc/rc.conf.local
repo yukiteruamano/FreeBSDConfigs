@@ -1,0 +1,38 @@
+# Kernel modules
+kld_list="amdgpu amdtemp fuse cpuctl" 
+
+# Cargando configuraciones personalizadas de devfs.conf y devfs.rules
+devfs_system_ruleset="devfsrules_common"
+
+# Microcod
+microcode_update_enable="YES"
+
+# Firewall
+# PF
+pf_enable=yes
+pf_rules="/etc/pf-default.conf"
+pflog_enable=yes
+pflog_logfile="/var/log/pflog"
+
+# Configuracion grafica
+dbus_enable="YES"
+slim_enable="YES"
+
+# Powerd
+powerd_enable=YES
+powerd_flags="-a hiadaptive"
+
+# Time
+openntpd_enable="YES"
+
+# OpenVPN
+openvpn_enable="YES"
+openvpn_if="tun"
+openvpn_configfile="/usr/local/etc/openvpn/vpn.ovpn"
+
+# Sendmail
+sendmail_enable="yes"
+
+# Bhyve
+vm_enable="YES"
+vm_dir="/usr/home/yukiteru/WORK/VMs"
