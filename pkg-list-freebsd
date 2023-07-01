@@ -621,7 +621,6 @@ libsunacl
 libsysctlmibinfo2
 libsysinfo
 libtasn1
-libtermkey
 libtextstyle
 libthai
 libtheora
@@ -675,8 +674,8 @@ lp_solve
 lsof
 lua-language-server
 lua53
+lua54
 luajit-devel
-luv
 lv2
 lxappearance
 lynis
@@ -706,7 +705,6 @@ mpdecimal
 mpfr
 mpg123
 mpv
-msgpack-c
 mupdf
 musicpc
 musicpd
@@ -717,7 +715,6 @@ mythes
 nano
 ncmpcpp
 neofetch
-neovim
 nerd-fonts
 netcdf
 nettle
@@ -849,6 +846,7 @@ py39-lxml
 py39-markdown
 py39-mutagen
 py39-mypy_extensions
+py39-nodeenv
 py39-nose
 py39-numpy
 py39-packaging
@@ -864,6 +862,7 @@ py39-pyflakes
 py39-pygments
 py39-pyjwt
 py39-pyparsing
+py39-pyright
 py39-pytest
 py39-pyudev
 py39-qt5-pyqt
@@ -953,6 +952,7 @@ rofi
 rtmpdump
 rtorrent
 rttr
+ruby
 rust
 rust-analyzer
 samba413
@@ -1011,6 +1011,7 @@ sysctlbyname-improved-kmod
 sysctlinfo-kmod
 taglib
 talloc
+tcl86
 tdb
 telegram-desktop
 terminus-font
@@ -1027,7 +1028,6 @@ tiff
 tigervnc-viewer
 tinyxml2
 tmux
-tree-sitter
 twemoji-color-font-ttf
 twm
 twolame
@@ -1035,7 +1035,6 @@ ubuntu-font
 uchardet
 uefi-edk2-bhyve-csm
 unclutter
-unibilium
 unrar
 unzip
 unzoo
@@ -1060,6 +1059,7 @@ wayland-protocols
 webkit2-gtk3
 webp
 webrtc-audio-processing0
+weechat
 woff2
 wpebackend-fdo
 wx32-gtk3
