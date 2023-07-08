@@ -85,3 +85,11 @@
         "--header-insertion=never"
         "--header-insertion-decorators=0"))
 
+;; Python3.9 configuration
+(setq python-shell-interpreter "/usr/local/bin/python3.9"
+      flycheck-python-pycompile-executable "/usr/local/bin/python3.9"
+      python-shell-exec-path "/usr/local/bin/python3.9")
+
+;; Catpuccin
+(setq doom-theme 'catppuccin)
+(setq catppuccin-flavor 'mocha)
