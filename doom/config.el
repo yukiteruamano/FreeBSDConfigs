@@ -75,7 +75,15 @@
 ;; You can also try 'gd' (or 'C-c c d') to jump to their definition and see how
 ;; they are implemented.
 
-;; Eglot
+
+;; EGLOT
+
+
+(setq-default flycheck-c/c++-clang-executable "/usr/local/bin/clang15")
+
+(after! eglot
+	(setq read-process-output-max (* 1024 1024)))
+
 (set-eglot-client! '(c-mode cc-mode c++-mode) '("clangd15" 
 	"-j=4"
 	"--log=error"
@@ -85,11 +93,105 @@
         "--header-insertion=never"
         "--header-insertion-decorators=0"))
 
+;; Eglot + ccls
+;;(set-eglot-client! '(cc-mode c-mode c++-mode ) '("ccls" "--init={\"index\": {\"threads\": 4}}"))
+
+
+;; OTHER CONF
+
 ;; Python3.9 configuration
 (setq python-shell-interpreter "/usr/local/bin/python3.9"
       flycheck-python-pycompile-executable "/usr/local/bin/python3.9"
       python-shell-exec-path "/usr/local/bin/python3.9")
 
+;; Garbage
+(after! gcmh
+  (setq gcmh-high-cons-threshold 268435456)
+  (setq gc-cons-threshold 268435456))
+
+
+;; LSP MODE
+
+;; Better lsp performance
+;;(after! lsp
+;;	(setq read-process-output-max (* 1024 1024)))
+
+;; CCLS 
+;;(after! ccls
+;;  (setq ccls-initialization-options '(:index (:comments 2) :completion (:detailedLabel t)))
+;;  (set-lsp-priority! 'ccls 2)) ; optional as ccls is the default in Doom
+
+
+;; THEMES
+
 ;; Catpuccin
 (setq doom-theme 'catppuccin)
 (setq catppuccin-flavor 'mocha)
+
+;; Flyspell 
+(after! flyspell
+  (setq ispell-program-name "aspell")
+  (setq ispell-extra-args '("--sug-mode=ultra" "--lang=en_US"))
+  (setq flyspell-lazy-idle-seconds 5))
+
+
+;; BSD Style
+(add-hook! (c-mode c++-mode)
+  (setq c-default-style "bsd")
+  (setq c-basic-offset 2))
+
+
+(defun bsd-style-code () (interactive)
+  (c-set-style "bsd")
+  (setq indent-tabs-mode t)
+  ;; Use C-c C-s at points of source code so see which
+  ;; c-set-offset is in effect for this situation
+  (c-set-offset 'defun-block-intro 8)
+  (c-set-offset 'statement-block-intro 8)
+  (c-set-offset 'statement-case-intro 8)
+  (c-set-offset 'substatement-open 4)
+  (c-set-offset 'substatement 8)
+  (c-set-offset 'arglist-cont-nonempty 4)
+  (c-set-offset 'inclass 8)
+  (c-set-offset 'knr-argdecl-intro 8)
+  )
+
+
+;; Splash screen personalized
+(defun my-weebery-is-always-greater ()
+  (let* ((banner '("⢸⣿⣿⣿⣿⠃⠄⢀⣴⡾⠃⠄⠄⠄⠄⠄⠈⠺⠟⠛⠛⠛⠛⠻⢿⣿⣿⣿⣿⣶⣤⡀⠄"
+                   "⢸⣿⣿⣿⡟⢀⣴⣿⡿⠁⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⣸⣿⣿⣿⣿⣿⣿⣿⣷"
+                   "⢸⣿⣿⠟⣴⣿⡿⡟⡼⢹⣷⢲⡶⣖⣾⣶⢄⠄⠄⠄⠄⠄⢀⣼⣿⢿⣿⣿⣿⣿⣿⣿⣿"
+                   "⢸⣿⢫⣾⣿⡟⣾⡸⢠⡿⢳⡿⠍⣼⣿⢏⣿⣷⢄⡀⠄⢠⣾⢻⣿⣸⣿⣿⣿⣿⣿⣿⣿"
+                   "⡿⣡⣿⣿⡟⡼⡁⠁⣰⠂⡾⠉⢨⣿⠃⣿⡿⠍⣾⣟⢤⣿⢇⣿⢇⣿⣿⢿⣿⣿⣿⣿⣿"
+                   "⣱⣿⣿⡟⡐⣰⣧⡷⣿⣴⣧⣤⣼⣯⢸⡿⠁⣰⠟⢀⣼⠏⣲⠏⢸⣿⡟⣿⣿⣿⣿⣿⣿"
+                   "⣿⣿⡟⠁⠄⠟⣁⠄⢡⣿⣿⣿⣿⣿⣿⣦⣼⢟⢀⡼⠃⡹⠃⡀⢸⡿⢸⣿⣿⣿⣿⣿⡟"
+                   "⣿⣿⠃⠄⢀⣾⠋⠓⢰⣿⣿⣿⣿⣿⣿⠿⣿⣿⣾⣅⢔⣕⡇⡇⡼⢁⣿⣿⣿⣿⣿⣿⢣"
+                   "⣿⡟⠄⠄⣾⣇⠷⣢⣿⣿⣿⣿⣿⣿⣿⣭⣀⡈⠙⢿⣿⣿⡇⡧⢁⣾⣿⣿⣿⣿⣿⢏⣾"
+                   "⣿⡇⠄⣼⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⠟⢻⠇⠄⠄⢿⣿⡇⢡⣾⣿⣿⣿⣿⣿⣏⣼⣿"
+                   "⣿⣷⢰⣿⣿⣾⣿⣿⣿⣿⣿⣿⣿⣿⣿⢰⣧⣀⡄⢀⠘⡿⣰⣿⣿⣿⣿⣿⣿⠟⣼⣿⣿"
+                   "⢹⣿⢸⣿⣿⠟⠻⢿⣿⣿⣿⣿⣿⣿⣿⣶⣭⣉⣤⣿⢈⣼⣿⣿⣿⣿⣿⣿⠏⣾⣹⣿⣿"
+                   "⢸⠇⡜⣿⡟⠄⠄⠄⠈⠙⣿⣿⣿⣿⣿⣿⣿⣿⠟⣱⣻⣿⣿⣿⣿⣿⠟⠁⢳⠃⣿⣿⣿"
+                   "⠄⣰⡗⠹⣿⣄⠄⠄⠄⢀⣿⣿⣿⣿⣿⣿⠟⣅⣥⣿⣿⣿⣿⠿⠋⠄⠄⣾⡌⢠⣿⡿⠃"
+                   "⠜⠋⢠⣷⢻⣿⣿⣶⣾⣿⣿⣿⣿⠿⣛⣥⣾⣿⠿⠟⠛⠉⠄⠄          "))
+         (longest-line (apply #'max (mapcar #'length banner))))
+    (put-text-property
+     (point)
+     (dolist (line banner (point))
+       (insert (+doom-dashboard--center
+                +doom-dashboard--width
+                (concat line (make-string (max 0 (- longest-line (length line))) 32)))
+               "\n"))
+     'face 'doom-dashboard-banner)))
+
+;; Init new splash screen
+(setq +doom-dashboard-ascii-banner-fn #'my-weebery-is-always-greater)
+
+;; Append new message in init dashboard 
+(add-hook! '+doom-dashboard-functions :append
+  (insert "\n" (+doom-dashboard--center +doom-dashboard--width "Powered by Emacs!")))
+	(remove-hook '+doom-dashboard-functions #'doom-dashboard-widget-shortmenu)
+
+;; Gravatar support for magit-commits
+(after! magit
+  (setq magit-revision-show-gravatars '("^Author:     " . "^Commit:     ")))
