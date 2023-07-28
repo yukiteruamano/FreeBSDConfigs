@@ -1,11 +1,39 @@
 # i3 config file (v4)
 
+# Setting color for theme
+
+set $rosewater #f5e0dc
+set $flamingo  #f2cdcd
+set $pink      #f5c2e7
+set $mauve     #cba6f7
+set $red       #f38ba8
+set $maroon    #eba0ac
+set $peach     #fab387
+set $green     #a6e3a1
+set $teal      #94e2d5
+set $sky       #89dceb
+set $sapphire  #74c7ec
+set $blue      #89b4fa
+set $lavender  #b4befe
+set $text      #cdd6f4
+set $subtext1  #bac2de
+set $subtext0  #a6adc8
+set $overlay2  #9399b2
+set $overlay1  #7f849c
+set $overlay0  #6c7086
+set $surface2  #585b70
+set $surface1  #45475a
+set $surface0  #313244
+set $base      #1e1e2e
+set $mantle    #181825
+set $crust     #11111b
+
 # I prefer to use the Win key as the mod key.
 # Arch Linux.
 set $mod Mod4
 
 # Default font for i3.
-font pango:Monospace 10
+font pango:Noto Monto 8
 
 # Use Mouse+$mod to drag floating windows to their wanted position.
 floating_modifier $mod
@@ -180,31 +208,47 @@ mode "resize" {
 # Resize windows.
 bindsym $mod+r mode "resize"
 
-client.focused          #79C0F4 #5493DD #FFFFFF #5493DD   #79C0F4
-client.focused_inactive #A5A5A5 #333333 #FFFFFF #333333   #A5A5A5
-client.unfocused        #A5A5A5 #4C7BB2 #FFFFFF #4C7BB2   #A5A5A5
-client.urgent           #900000 #900000 #FFFFFF #900000   #900000
-client.placeholder      #0C0C0C #0C0C0C #FFFFFF #0C0C0C   #0C0C0C
+#client.focused          #79C0F4 #5493DD #FFFFFF #5493DD   #79C0F4
+#client.focused_inactive #A5A5A5 #333333 #FFFFFF #333333   #A5A5A5
+#client.unfocused        #A5A5A5 #4C7BB2 #FFFFFF #4C7BB2   #A5A5A5
+#client.urgent           #900000 #900000 #FFFFFF #900000   #900000
+#client.placeholder      #0C0C0C #0C0C0C #FFFFFF #0C0C0C   #0C0C0C
+#client.background       #FFFFFF
 
-client.background       #FFFFFF
+# Mocha theme
+# target                 title     bg    text   indicator  border
+client.focused           $pink     $base $text  $rosewater $blue
+client.focused_inactive  $mauve    $base $text  $rosewater $mauve
+client.unfocused         $mauve    $base $text  $rosewater $mauve
+client.urgent            $peach    $base $peach $overlay0  $blue
+client.placeholder       $overlay0 $base $text  $overlay0  $overlay0
+client.background        $base
+
 
 bar {
-  status_command i3status -c $HOME/.config/i3/i3status.conf
+  status_command i3status -c $HOME/.config/i3/i3status.conf  | $HOME/.config/i3/scripts/mpd.sh
   position          top
   workspace_buttons yes
   #font pango:Cascadia Mono Regular 8
-  font pango:Monospace 8
+  font pango:Noto Mono 8
 
   colors {
-    background #333333
-    statusline #FFFFFF
-    separator  #A5A5A5
+    background $base
+    statusline $text
+    separator  $mauve
 
-    focused_workspace  #4C7899 #5493DD #FFFFFF
-    active_workspace   #555555 #5493DD #FFFFFF
-    inactive_workspace #555555 #4C7BB2 #333333
-    urgent_workspace   #555555 #900000 #FFFFFF
-    binding_mode       #555555 #900000 #FFFFFF
+    #focused_workspace  #4C7899 #5493DD #FFFFFF
+    #active_workspace   #555555 #5493DD #FFFFFF
+    #inactive_workspace #555555 #4C7BB2 #333333
+    #urgent_workspace   #555555 #900000 #FFFFFF
+    #binding_mode       #555555 #900000 #FFFFFF
+
+    focused_workspace  $blue $base $text
+    active_workspace   $blue $base $text 
+    inactive_workspace $mauve $base $text 
+    urgent_workspace   $mauve $surface0 $text
+    binding_mode       $blue $base $text
+
   }
 }
 
