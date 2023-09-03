@@ -1,0 +1,11 @@
+/* Install stylelint and stylelint-config-standar using npm --save-dev and delete this line*/
+{
+  "extends": "stylelint-config-standard",
+  "rules": {
+    "shorthand-property-no-redundant-values": true,
+    "declaration-block-no-duplicate-properties": true,
+    "declaration-block-no-redundant-longhand-properties": true,
+    "max-nesting-depth": 1,
+    "no-unknown-animations": true
+  }
+}
