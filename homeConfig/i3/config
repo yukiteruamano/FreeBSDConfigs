@@ -33,7 +33,7 @@ set $crust     #11111b
 set $mod Mod4
 
 # Default font for i3.
-font pango:Noto Monto 8
+font pango:Noto Mono 8
 
 # Use Mouse+$mod to drag floating windows to their wanted position.
 floating_modifier $mod
@@ -142,9 +142,9 @@ bindsym $mod+Shift+F1 exec "mpc stop"
 bindsym $mod+Shift+F2 exec "mpc prev"
 bindsym $mod+Shift+F3 exec "mpc play"
 bindsym $mod+Shift+F4 exec "mpc next"
-bindsym $mod+Shift+F10 exec "mixer vol -5"
-bindsym $mod+Shift+F11 exec "mixer vol +5"
-bindsym $mod+Shift+F12 exec "alacritty -e mixertui"
+bindsym $mod+Shift+F10 exec "mixer vol.volume=-5%"
+bindsym $mod+Shift+F11 exec "mixer vol.volume=+5%"
+bindsym $mod+Shift+F12 exec "mixer vol.volume=0"
 
 # Map the print key to gnome-screenshot.
 bindsym $mod+Print exec "scrot -q 95 -e 'mv $f /home/yukiteru/Imágenes/Screenshots'"
@@ -259,7 +259,8 @@ exec --no-startup-id "compton --config $HOME/.config/compton/config"
 
 # Let's get our wallpaper.
 # You can run nitrogen from the console and set it up, afterwards use "--restore" to use it in i3.
-exec --no-startup-id "feh --bg-fill --randomize /home/yukiteru/DATA/PersonalSync/Wallpapers"
+#exec --no-startup-id "feh --bg-fill --randomize /home/yukiteru/DATA/PersonalSync/Wallpapers"
+exec --no-startup-id "nitrogen --restore"
 
 # MPD Music
 exec --no-startup-id "musicpd $HOME/.config/mpd/mpd.conf"
@@ -273,8 +274,5 @@ exec --no-startup-id "dunst -conf $HOME/.config/dunst/dunstrc"
 # Numlockx
 exec --no-startup-id "numlockx"
 
-# Keyboard in spanish
+# Keyboard in English Intl
 exec --no-startup-id "setxkbmap -layout us -variant intl"
-
-# Syncthing
-exec --no-startup-id "syncthing --no-browser"

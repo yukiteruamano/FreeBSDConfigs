@@ -1,4 +1,3 @@
-# $FreeBSD$
 #
 # .cshrc - csh resource script, read at beginning of execution by each shell
 #
@@ -18,7 +17,7 @@ alias ll	ls -lAF
 # A righteous umask
 # umask 22
 
-setenv	EDITOR	nano
+setenv	EDITOR	vim
 setenv	PAGER	less
 
 if ($?prompt) then
@@ -47,3 +46,6 @@ setenv QT_QPA_PLATFORMTHEME qt5ct
 setenv XDG_RUNTIME_DIR '/var/run/user/$(id -u)'
 setenv MOZ_ACCELERATED 1
 setenv MOZ_WEBRENDER 1
+
+
+

@@ -1,0 +1,2 @@
+LANG=es_ES.UTF-8; export LANG
+MM_CHARSET=UTF-8; export CHARSET

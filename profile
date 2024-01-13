@@ -1,4 +1,3 @@
-# $FreeBSD$
 #
 # .profile - Bourne Shell startup script for login shells
 #
@@ -14,16 +13,14 @@
 # serial line.
 # TERM=xterm; 	export TERM
 
-EDITOR=nano;   					export EDITOR
-PAGER=less;  					export PAGER
-QT_QPA_PLATFORMTHEME=qt5ct;			export QT_QPA_PLATFORMTHEME
-XDG_RUNTIME_DIR=/var/run/user/$(id -u);		export XDG_RUNTIME_DIR
-MOZ_WEBRENDER=1;				export MOZ_WEBRENDER
-MOZ_ACCELERATED=1;				export MOZ_ACCELERATED
-
-# Language setting for user
-LANG=es_ES.UTF-8;	export LANG
-CHARSET=UTF-8;		export CHARSET
+LANG=es_ES.UTF-8; 								export LANG
+CHARSET=UTF-8;									export CHARSET
+EDITOR=vim;										export EDITOR
+PAGER=less;  										export PAGER
+QT_QPA_PLATFORMTHEME=qt5ct;					export QT_QPA_PLATFORMTHEME
+XDG_RUNTIME_DIR="/var/run/user/$(id -u)";		export XDG_RUNTIME_DIR
+MOZ_WEBRENDER=1;								export MOZ_WEBRENDER
+MOZ_ACCELERATED=1;								export MOZ_ACCELERATED
 
 # set ENV to a file invoked each time sh is started for interactive use.
 ENV=$HOME/.shrc; export ENV

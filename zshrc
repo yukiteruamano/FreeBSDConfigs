@@ -1,6 +1,6 @@
 # If you come from bash you might have to change your $PATH.
-export GOPATH=$HOME/.golang
-export PATH=$HOME/.cargo/bin:$GOPATH/bin:$HOME/.config/emacs/bin:$HOME/.local/bin:/usr/local/bin:$PATH
+#export GOPATH=$HOME/.golang
+#export PATH=$HOME/.cargo/bin:$GOPATH/bin:$HOME/.config/emacs/bin:$HOME/.local/bin:/usr/local/bin:$PATH
 
 # Path to your oh-my-zsh installation.
 export ZSH="$HOME/.oh-my-zsh"
@@ -80,7 +80,6 @@ ZSH_TMUX_CONFIG=$HOME/.config/tmux/tmux.conf
 # Cargamos todo oh-my-zsh
 source $ZSH/oh-my-zsh.sh
 
-
 #####################################################################
 # Personal configs
 #####################################################################
@@ -92,7 +91,8 @@ export LANG=es_ES.UTF-8
 # export ARCHFLAGS="-arch x86_64"
 
 # Exports
-export EDITOR="nano" 
+export EDITOR="vim" 
+export PAGER="less" 
 export QT_QPA_PLATFORMTHEME="qt5ct" 
 export XDG_RUNTIME_DIR="/var/run/user/$(id -u)"
 export MOZ_ACCELERATED=1
@@ -111,9 +111,9 @@ keychain ~/.ssh/id_rsa
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 
-alias reiniciar-vpn="doas service openvpn restart"
-alias activar-vpn="doas service openvpn start"
-alias desactivar-vpn="doas service openvpn stop"
+#alias reiniciar-vpn="doas service openvpn restart"
+#alias activar-vpn="doas service openvpn start"
+#alias desactivar-vpn="doas service openvpn stop"
 
 # Clean PATH duplication
 typeset -U path
