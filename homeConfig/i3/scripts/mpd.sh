@@ -4,11 +4,11 @@ while :
 do
     read line
 
-    printf -v mpd_song "%q" "$(mpc current -f "[[%albumartist%|%artist% - ]%title%]")"
+    printf -v mpd_song "%q" "$(mpc current -f "[[%albumartist%|%artist% - ] - %album% - %title% (%time%)]")"
 
     # printf -v sets the variable to '' in case of empty assignment
     if [[ "$mpd_song" == "''" ]]; then
-        printf -v mpd_song "%q" "$(basename "$(mpc current -f "%artist% - %title%")")"
+        printf -v mpd_song "%q" "$(basename "$(mpc current -f "%artist% - %album% - %title% (%time%)")")"
     fi
 
     status="$(mpc status)"
@@ -24,7 +24,7 @@ do
             flag=0 ;;
     esac
     if (( flag == 1 )); then
-        echo " $line" | sed 's|{\"name|{\"name\":\"music\",\"color\": \"'"$color"'\",\"full_text\":\"MPD: '"$mpd_song"'\"},{\"name|' || exit 1
+        echo " $line" | sed 's|{\"name|{\"name\":\"music\",\"color\": \"'"$color"'\",\"full_text\":\"Playing: '"$mpd_song"'\"},{\"name|' || exit 1
         continue
     else
         echo -n "$line" || exit 1

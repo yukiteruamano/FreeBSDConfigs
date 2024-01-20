@@ -255,11 +255,9 @@ bar {
 ## Autostart applicatons ##
 
 # Compton
-exec --no-startup-id "compton --config $HOME/.config/compton/config"
+exec --no-startup-id "picom --config $HOME/.config/picom/config"
 
 # Let's get our wallpaper.
-# You can run nitrogen from the console and set it up, afterwards use "--restore" to use it in i3.
-#exec --no-startup-id "feh --bg-fill --randomize /home/yukiteru/DATA/PersonalSync/Wallpapers"
 exec --no-startup-id "nitrogen --restore"
 
 # MPD Music

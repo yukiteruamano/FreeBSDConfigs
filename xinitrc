@@ -1,1 +1,2 @@
-exec dbus-launch --exit-with-session /usr/local/bin/i3
+LANG=es_EE.UTF-8; export LANG
+CHARSET=UTF-8; export CHARSET

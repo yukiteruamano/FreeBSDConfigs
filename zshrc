@@ -1,6 +1,6 @@
 # If you come from bash you might have to change your $PATH.
-#export GOPATH=$HOME/.golang
-#export PATH=$HOME/.cargo/bin:$GOPATH/bin:$HOME/.config/emacs/bin:$HOME/.local/bin:/usr/local/bin:$PATH
+export GOPATH=$HOME/.golang
+export PATH=$GOPATH/bin:$HOME/.config/emacs/bin:$HOME/.local/bin:/usr/local/bin:$PATH
 
 # Path to your oh-my-zsh installation.
 export ZSH="$HOME/.oh-my-zsh"
@@ -111,9 +111,40 @@ keychain ~/.ssh/id_rsa
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 
-#alias reiniciar-vpn="doas service openvpn restart"
-#alias activar-vpn="doas service openvpn start"
-#alias desactivar-vpn="doas service openvpn stop"
+# VPN Control
+alias reiniciar-vpn="doas service openvpn restart"
+alias activar-vpn="doas service openvpn start"
+alias desactivar-vpn="doas service openvpn stop"
+alias status-vpn="doas service openvpn status"
+
+# Activar VPN WORK
+alias bit2me-vpn-enable="doas bit2me-vpn enable"
+alias bit2me-vpn-disable="doas bit2me-vpn disable"
+
+# Montar MTP
+alias mount-mtp="jmtpfs -o allow_other /home/yukiteru/MTP"
+
+# PKG
+alias update-pkgs="doas pkg update"
+alias upgrade-pkgs="doas pkg upgrade"
+alias fetch-fbsd-updates="doas freebsd-update fetch"
+alias install-fbsd-updates="doas freebsd-update install"
+
+# Control VM
+alias vm-list="doas vm list"
+
+# Direnv
+eval "$(direnv hook zsh)"
+
+# GPG
+export GPG_TTY=`tty`
+
+# PIPENV
+export PIPENV_VENV_IN_PROJECT=1
+eval "$(_PIPENV_COMPLETE=zsh_source pipenv)"
+
+# # FZF
+autoload _fzf_key_bindings _fzf_completion
 
 # Clean PATH duplication
 typeset -U path
