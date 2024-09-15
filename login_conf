@@ -1,6 +1,0 @@
-#
-# see login.conf(5)
-#
-yukiteru:\
-	:charset=UTF-8:\
-	:lang=es_ES.UTF-8:

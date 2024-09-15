@@ -1,0 +1,15 @@
+# Device		Mountpoint	FStype	Options		Dump	Pass#
+/dev/gpt/efiboot0	/boot/efi	msdosfs	rw		2	2
+/dev/nda0p2		none		swap	sw		0	0
+
+# Special mount
+proc	/proc	procfs	rw	0	0
+fdesc	/dev/fd	fdescfs	rw,auto,late	0	0
+
+# Mount server
+serverip:/zpool-data/NFS	/home/yukiteru/NFS	nfs	nfsv4,tcp,rw,timeo=100,late,noauto	0	0
+
+# Mount disks
+/dev/ada1p1	/media/BackupSystem	ufs	rw,late	1	2
+/dev/ada0p1	/home/yukiteru/DATA	ufs	rw,late	1	2
+/dev/nda1p1	/home/yukiteru/DEVEL	ufs	rw,late	1	2

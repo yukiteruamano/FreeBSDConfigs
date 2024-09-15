@@ -6,21 +6,25 @@
 
 # These are normally set through /etc/login.conf.  You may override them here
 # if wanted.
-# PATH=/sbin:/bin:/usr/sbin:/usr/bin:/usr/local/sbin:/usr/local/bin:$HOME/bin; export PATH
+PATH=/sbin:/bin:/usr/sbin:/usr/bin:/usr/local/sbin:/usr/local/bin:$HOME/bin:$HOME/.golang/bin:$HOME/.cargo/bin:$HOME/.local/bin:$HOME/.config/emacs/bin; export PATH
 
-# Setting TERM is normally done through /etc/ttys.  Do only override
-# if you're sure that you'll never log in via telnet or xterm or a
-# serial line.
-# TERM=xterm; 	export TERM
+# Personal configs
 
-LANG=es_ES.UTF-8; 								export LANG
-CHARSET=UTF-8;									export CHARSET
-EDITOR=vim;										export EDITOR
-PAGER=less;  										export PAGER
-QT_QPA_PLATFORMTHEME=qt5ct;					export QT_QPA_PLATFORMTHEME
-XDG_RUNTIME_DIR="/var/run/user/$(id -u)";		export XDG_RUNTIME_DIR
-MOZ_WEBRENDER=1;								export MOZ_WEBRENDER
-MOZ_ACCELERATED=1;								export MOZ_ACCELERATED
+EDITOR='vim';							export EDITOR
+PAGER='less';                                       		export PAGER
+
+# Personal exports
+QT_QPA_PLATFORMTHEME='qt5ct';                       		export QT_QPA_PLATFORMTHEME
+XDG_RUNTIME_DIR='$HOME/.local/run/yukiteru';			export XDG_RUNTIME_DIR
+GOPATH='/home/yukiteru/.golang';				export GOPATH
+RUST_SRC_PATH='/usr/local/lib/rustlib/src/rust/library';	export RUST_SRC_PATH
+PIPENV_VENV_IN_PROJECT=1; 					export PIPENV_VENV_IN_PROJECT
+MOZ_ACCELERATED=1;						export MOZ_ACCELERATED
+MOZ_WEBRENDER=1;						export MOZ_WEBRENDER
+
+# Language setting for user
+LANG='es_ES.UTF-8';						export LANG
+CHARSET='UTF-8';						export CHARSET
 
 # set ENV to a file invoked each time sh is started for interactive use.
 ENV=$HOME/.shrc; export ENV

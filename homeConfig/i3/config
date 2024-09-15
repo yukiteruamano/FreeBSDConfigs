@@ -33,7 +33,7 @@ set $crust     #11111b
 set $mod Mod4
 
 # Default font for i3.
-font pango:Noto Mono 8
+font pango:Fira Mono 8
 
 # Use Mouse+$mod to drag floating windows to their wanted position.
 floating_modifier $mod
@@ -94,6 +94,18 @@ bindsym $mod+space focus mode_toggle
 # Focus the child container.
 #bindsym $mod+d focus child
 
+# Workspace definition
+workspace 1 output DisplayPort-1
+workspace 2 output DisplayPort-1
+workspace 3 output DisplayPort-1
+workspace 4 output DisplayPort-1
+workspace 5 output DisplayPort-1
+workspace 6 output DisplayPort-1
+workspace 7 output DisplayPort-1
+workspace 8 output DisplayPort-1
+workspace 9 output DisplayPort-1
+workspace 10 output DisplayPort-1
+
 # Switch to workspace.
 bindsym $mod+1 workspace 1
 bindsym $mod+2 workspace 2
@@ -119,10 +131,10 @@ bindsym $mod+Shift+9 move container to workspace 9
 bindsym $mod+Shift+0 move container to workspace 10
 
 # Disable title bars.
-for_window [class="^.*"] border pixel 1
+for_window [class="^.*"] border pixel 0
 
 # Key combination for dmenu.
-bindsym $mod+d exec "sh ~/.config/rofi/launchers/type-1/launcher.sh"
+bindsym $mod+d exec "bash $HOME/.config/rofi/launchers/type-1/launcher.sh"
 
 # Key combination for some of my favorite applications.
 bindsym $mod+Return exec "alacritty"
@@ -130,11 +142,11 @@ bindsym $mod+Return exec "alacritty"
 # Work quick access
 bindsym $mod+Shift+F5 exec "thunar"
 bindsym $mod+Shift+F6 exec "firefox -P yukiteru"
-bindsym $mod+Shift+F7 exec "thunderbird"
 bindsym $mod+Shift+F8 exec "firefox -P bit2me"
+bindsym $mod+Shift+F7 exec "thunderbird"
 bindsym $mod+Shift+g exec "gimp"
-bindsym $mod+Shift+w exec "alacritty -e weechat"
 bindsym $mod+Shift+f exec "flameshot"
+bindsym $mod+Shift+t exec "telegram-desktop"
 
 # Audio quick access
 bindsym $mod+Shift+F9 exec "alacritty -e ncmpcpp"
@@ -142,12 +154,12 @@ bindsym $mod+Shift+F1 exec "mpc stop"
 bindsym $mod+Shift+F2 exec "mpc prev"
 bindsym $mod+Shift+F3 exec "mpc play"
 bindsym $mod+Shift+F4 exec "mpc next"
-bindsym $mod+Shift+F10 exec "mixer vol.volume=-5%"
-bindsym $mod+Shift+F11 exec "mixer vol.volume=+5%"
-bindsym $mod+Shift+F12 exec "mixer vol.volume=0"
+bindsym $mod+Shift+F10 exec "mixer vol=-0.1"
+bindsym $mod+Shift+F11 exec "mixer vol=+0.1"
+bindsym $mod+Shift+F12 exec "alacritty -e mixertui"
 
 # Map the print key to gnome-screenshot.
-bindsym $mod+Print exec "scrot -q 95 -e 'mv $f /home/yukiteru/Imágenes/Screenshots'"
+bindsym $mod+Shift+s exec "scrot -q 95 -e 'mv $f $HOME/Imágenes/Screenshots'"
 
 # Some applications needs to be floating. mpv is one of them.
 for_window [class="mpv"] floating enable
@@ -161,7 +173,7 @@ for_window [window_type="dialog"] floating enable
 for_window [window_type="menu"] floating enable
 
 # Screen lock. See 'man i3lock' for information about usage.
-bindsym $mod+Control+l exec "i3lock -t -i /home/yukiteru/.lock.png --color=000000"
+bindsym $mod+Control+l exec "i3lock -t -i $HOME/.lock.png --color=000000"
 
 # Jump to the latest "urgent" window.
 bindsym $mod+u [urgent=latest] focus
@@ -173,18 +185,11 @@ bindsym $mod+Shift+r reload
 bindsym $mod+Shift+e restart
 
 # Exit i3 (logs you out of your X session).
-# In my case I don't want a warning or anything, so be careful about pressing
-# this combination as it kills X. Also be sure to lock down all applications
-# before usage.
-bindsym $mod+Shift+Escape exec i3-msg exit
+bindsym $mod+Shift+Escape exec "bash $HOME/.config/rofi/scripts/volfread_t1"
 
 # Shutdown and reboot pc
-bindsym $mod+Control+F1 exec "shutdown -r now"
-bindsym $mod+Control+Escape exec "shutdown -p now"
-
-# If you like a warning that needs to be confirmed with the mouse, you can use
-# the following instead.
-bindsym $mod+Shift+x exec "i3-nagbar -t warning -m 'Do you really want to end your X session.' -b 'Yes, exit i3' 'i3-msg exit'"
+bindsym $mod+Control+F1 exec "i3-nagbar -t warning -m 'Reboot system?' -b 'Yes, reboot!' 'shutdown -r now'"
+bindsym $mod+Control+Escape exec "i3-nagbar -t warning -m 'Shutdown system?' -b 'Yes, shutdown!' 'shutdown -p now'"
 
 # Resize window (you can also use the mouse for that).
 mode "resize" {
@@ -208,13 +213,6 @@ mode "resize" {
 # Resize windows.
 bindsym $mod+r mode "resize"
 
-#client.focused          #79C0F4 #5493DD #FFFFFF #5493DD   #79C0F4
-#client.focused_inactive #A5A5A5 #333333 #FFFFFF #333333   #A5A5A5
-#client.unfocused        #A5A5A5 #4C7BB2 #FFFFFF #4C7BB2   #A5A5A5
-#client.urgent           #900000 #900000 #FFFFFF #900000   #900000
-#client.placeholder      #0C0C0C #0C0C0C #FFFFFF #0C0C0C   #0C0C0C
-#client.background       #FFFFFF
-
 # Mocha theme
 # target                 title     bg    text   indicator  border
 client.focused           $pink     $base $text  $rosewater $blue
@@ -224,41 +222,13 @@ client.urgent            $peach    $base $peach $overlay0  $blue
 client.placeholder       $overlay0 $base $text  $overlay0  $overlay0
 client.background        $base
 
-
-bar {
-  status_command i3status -c $HOME/.config/i3/i3status.conf  | $HOME/.config/i3/scripts/mpd.sh
-  position          top
-  workspace_buttons yes
-  #font pango:Cascadia Mono Regular 8
-  font pango:Noto Mono 8
-
-  colors {
-    background $base
-    statusline $text
-    separator  $mauve
-
-    #focused_workspace  #4C7899 #5493DD #FFFFFF
-    #active_workspace   #555555 #5493DD #FFFFFF
-    #inactive_workspace #555555 #4C7BB2 #333333
-    #urgent_workspace   #555555 #900000 #FFFFFF
-    #binding_mode       #555555 #900000 #FFFFFF
-
-    focused_workspace  $blue $base $text
-    active_workspace   $blue $base $text 
-    inactive_workspace $mauve $base $text 
-    urgent_workspace   $mauve $surface0 $text
-    binding_mode       $blue $base $text
-
-  }
-}
-
 ## Autostart applicatons ##
 
-# Compton
-exec --no-startup-id "picom --config $HOME/.config/picom/config"
+# Randr
+exec --no-startup-id "bash $HOME/.local/bin/randr-monitors"
 
-# Let's get our wallpaper.
-exec --no-startup-id "nitrogen --restore"
+# Picom
+exec --no-startup-id "picom --config $HOME/.config/picom/config"
 
 # MPD Music
 exec --no-startup-id "musicpd $HOME/.config/mpd/mpd.conf"
@@ -266,11 +236,23 @@ exec --no-startup-id "musicpd $HOME/.config/mpd/mpd.conf"
 # Unclutter
 exec --no-startup-id "unclutter -root"
 
-# Unclutter
+# Dunst
 exec --no-startup-id "dunst -conf $HOME/.config/dunst/dunstrc"
 
 # Numlockx
 exec --no-startup-id "numlockx"
 
-# Keyboard in English Intl
+# Keyboard in spanish
 exec --no-startup-id "setxkbmap -layout us -variant intl"
+
+# Polybar
+exec --no-startup-id "bash $HOME/.config/polybar/launch.sh"
+
+# Parcellite
+exec --no-startup-id "parcellite"
+
+# Emacs daemon
+exec --no-startup-id "emacs --daemon"
+
+# Wallpapers
+exec --no-startup-id "bash /home/yukiteru/.local/bin/randWallpaper.sh" 

@@ -1,9 +1,11 @@
 # Unicode support
-libiconv_load="YES" 
-libmchain_load="YES" 
-msdosfs_iconv_load="YES"
+libiconv_load="YES"
+libmchain_load="YES"
+msdosfs_iconv_load="YES" 
 
-# Audio
-# Enable EQ in sound card
-hint.pcm.4.eq=1
-hint.pcm.5.eq=1
+# Audio - EQ Enable
+hint.pcm.6.eq=1
+hint.pcm.7.eq=1
+hint.pcm.9.eq=1
+
+

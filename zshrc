@@ -1,6 +1,13 @@
 # If you come from bash you might have to change your $PATH.
+
+# GOPATH
 export GOPATH=$HOME/.golang
-export PATH=$GOPATH/bin:$HOME/.config/emacs/bin:$HOME/.local/bin:/usr/local/bin:$PATH
+
+# Rust 
+export RUST_SRC_PATH="/usr/local/lib/rustlib/src/rust/library"
+
+# PATH from system
+export PATH=$HOME/bin:$GOPATH/bin:$HOME/.config/emacs/bin:$HOME/.cargo/bin:$HOME/.local/bin:$PATH
 
 # Path to your oh-my-zsh installation.
 export ZSH="$HOME/.oh-my-zsh"
@@ -75,7 +82,7 @@ plugins=(git tmux)
 
 # Tmux autostart
 ZSH_TMUX_AUTOSTART=true 
-ZSH_TMUX_CONFIG=$HOME/.config/tmux/tmux.conf
+ZSH_TMUX_CONFIG=$HOME/.tmux.conf
 
 # Cargamos todo oh-my-zsh
 source $ZSH/oh-my-zsh.sh
@@ -85,21 +92,35 @@ source $ZSH/oh-my-zsh.sh
 #####################################################################
 
 # Language 
-export LANG=es_ES.UTF-8
+export LANG="es_ES.UTF-8"
+export CHARSET="UTF-8"
 
 # Compilation flags
 # export ARCHFLAGS="-arch x86_64"
 
-# Exports
+# Exports personales
 export EDITOR="vim" 
 export PAGER="less" 
 export QT_QPA_PLATFORMTHEME="qt5ct" 
-export XDG_RUNTIME_DIR="/var/run/user/$(id -u)"
+export XDG_RUNTIME_DIR="$HOME/.local/run/yukiteru"
 export MOZ_ACCELERATED=1
 export MOZ_WEBRENDER=1
 
+# GPG
+export GPG_TTY=`tty`
+
+# PIPENV
+export PIPENV_VENV_IN_PROJECT=1
+eval "$(_PIPENV_COMPLETE=zsh_source pipenv)"
+
+# FZF
+# eval "$(fzf --zsh)"
+
+# Direnv
+eval "$(direnv hook zsh)"
+
 # Keychains
-keychain ~/.ssh/id_rsa
+keychain ~/.ssh/id_ed25519
 . ~/.keychain/${HOST}-sh
 
 # Set personal aliases, overriding those provided by oh-my-zsh libs,
@@ -110,41 +131,6 @@ keychain ~/.ssh/id_rsa
 # Example aliases
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
-
-# VPN Control
-alias reiniciar-vpn="doas service openvpn restart"
-alias activar-vpn="doas service openvpn start"
-alias desactivar-vpn="doas service openvpn stop"
-alias status-vpn="doas service openvpn status"
-
-# Activar VPN WORK
-alias bit2me-vpn-enable="doas bit2me-vpn enable"
-alias bit2me-vpn-disable="doas bit2me-vpn disable"
-
-# Montar MTP
-alias mount-mtp="jmtpfs -o allow_other /home/yukiteru/MTP"
-
-# PKG
-alias update-pkgs="doas pkg update"
-alias upgrade-pkgs="doas pkg upgrade"
-alias fetch-fbsd-updates="doas freebsd-update fetch"
-alias install-fbsd-updates="doas freebsd-update install"
-
-# Control VM
-alias vm-list="doas vm list"
-
-# Direnv
-eval "$(direnv hook zsh)"
-
-# GPG
-export GPG_TTY=`tty`
-
-# PIPENV
-export PIPENV_VENV_IN_PROJECT=1
-eval "$(_PIPENV_COMPLETE=zsh_source pipenv)"
-
-# # FZF
-autoload _fzf_key_bindings _fzf_completion
 
 # Clean PATH duplication
 typeset -U path
