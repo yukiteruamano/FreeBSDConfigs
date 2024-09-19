@@ -2,7 +2,6 @@
 
 # Interfaces 
 ext_if="re0"
-tun_if="wg0"
 
 # Basic config 
 set skip on lo0
@@ -12,7 +11,6 @@ set optimization normal
 set ruleset-optimization basic
 set state-policy if-bound
 set loginterface $ext_if
-set loginterface $tun_if
 
 # Block spoofed packets
 antispoof quick for $ext_if
@@ -20,8 +18,6 @@ antispoof quick for $ext_if
 # Block all packets
 block in log all
 
-# WG  MTU Path discovery
-pass in log on { $ext_if, $tun_if } inet proto icmp all icmp-type { echoreq, unreach }
-
 # Only pass out
-pass out on {$ext_if, $tun_if} proto { tcp, udp, icmp } to any keep state
+pass out on $ext_if proto { tcp, udp, icmp } to any keep state
+

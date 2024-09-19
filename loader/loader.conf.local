@@ -8,4 +8,5 @@ hint.pcm.6.eq=1
 hint.pcm.7.eq=1
 hint.pcm.9.eq=1
 
-
+# BBR TCP Congestion Control
+tcp_bbr_load="YES"
