@@ -17,7 +17,7 @@ alias ll	ls -lAF
 # A righteous umask
 # umask 22
 
-setenv	EDITOR	vi
+setenv	EDITOR	vim
 setenv	PAGER	less
 
 if ($?prompt) then
@@ -41,19 +41,14 @@ if ($?prompt) then
 
 endif
 
-# Personal configs
-setenv EDITOR	'vim'
-setenv PAGER	'less'
-
-# # Personal exports
+# Personal exports
 setenv QT_QPA_PLATFORMTHEME 'qt5ct'
 setenv XDG_RUNTIME_DIR '/home/yukiteru/.local/run/yukiteru'
 setenv GOPATH '/home/yukiteru/.golang'
 setenv RUST_SRC_PATH '/usr/local/lib/rustlib/src/rust/library'
-setenv PIPENV_VENV_IN_PROJECT 1
 setenv MOZ_ACCELERATED 1
 setenv MOZ_WEBRENDER 1
 
-# # Language setting for user
+# Language setting for user
 setenv LANG 'es_ES.UTF-8'
 setenv CHARSET 'UTF-8'

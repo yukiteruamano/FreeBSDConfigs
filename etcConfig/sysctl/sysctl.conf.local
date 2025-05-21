@@ -14,8 +14,8 @@ kern.elf64.aslr.enable=1
 kern.elf64.aslr.pie_enable=1
 
 #################################################################################
-## Seguridad IP
-
+### Seguridad IP
+#
 net.inet.tcp.blackhole=2                        # Blackhole TCP
 net.inet.udp.blackhole=1                        # Blackhole UDP
 net.inet.icmp.drop_redirect=1                   # Drop redirects
@@ -31,10 +31,18 @@ net.inet.ip.random_id=1                         # Asignacion aleatorio de ID IP
 net.inet.ip.process_options=0
 net.inet.tcp.nolocaltimewait=1
 net.inet.tcp.icmp_may_rst=0
-net.inet.tcp.path_mtu_discovery=0 
+net.inet.tcp.path_mtu_discovery=1
+#net.inet.tcp.mssdflt=1400
 
-# IPv6 Security
-# Desactiva varias opciones de IPv6
+# The OS buffer / backlog queue depth for accepting new TCP connections
+# Default: 128
+#kern.ipc.somaxconn=256
+
+# Change to BBR for better performance
+net.inet.tcp.functions_default=bbr
+
+## IPv6 Security
+## Desactiva varias opciones de IPv6
 
 net.inet6.icmp6.nodeinfo=0
 net.inet6.ip6.use_tempaddr=1
@@ -43,6 +51,7 @@ net.inet6.icmp6.rediraccept=0
 net.inet6.ip6.accept_rtadv=0
 net.inet6.ip6.auto_linklocal=0
 net.inet6.ip6.redirect=0
+
 
 #################################################################################
 ## Tweaks para el sistema
@@ -53,10 +62,6 @@ vfs.usermount=1                                 # Automontaje para usuarios
 # Akonadi y daemons con alto trafico en local streams
 net.local.stream.recvspace=65536
 net.local.stream.sendspace=65536
-
-# Incrementamos el buffer TCP, util para redes lentas
-net.inet.tcp.recvbuf_max=8388608
-net.inet.tcp.sendbuf_max=8388608
 
 # Bhyve conf
 #net.inet.ip.forwarding=1
@@ -75,7 +80,6 @@ hw.snd.default_unit=6
 # Aplicado al PCM por defecto (built-in sound-card)
 dev.pcm.6.eq=1
 dev.pcm.7.eq=1
-dev.pcm.9.eq=1
 
 # Mejor calidad en el EQ
 hw.snd.feeder_rate_quality=4

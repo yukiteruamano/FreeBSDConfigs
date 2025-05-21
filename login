@@ -10,8 +10,6 @@ if ( -x /usr/bin/resizewin ) /usr/bin/resizewin -z
 # Display a random cookie on each login.
 if ( -x /usr/bin/fortune ) /usr/bin/fortune freebsd-tips
 
-# Personal configuration
-
 # Personal configs
 setenv EDITOR   'vim'
 setenv PAGER    'less'

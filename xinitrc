@@ -5,7 +5,6 @@ export EDITOR="vim"
 export PAGER="less"
 export QT_QPA_PLATFORMTHEME="qt5ct"
 export XDG_RUNTIME_DIR="$HOME/.local/run/yukiteru"
-export PIPENV_VENV_IN_PROJECT=1
 export GOPATH="${HOME}/.golang"
 export RUST_SRC_PATH="/usr/local/lib/rustlib/src/rust/library"
 export MOZ_ACCELERATED=1
@@ -18,3 +17,4 @@ fi
 
 # Init i3 session
 exec /usr/local/bin/ck-launch-session /usr/local/bin/i3
+

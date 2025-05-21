@@ -58,7 +58,6 @@ QT_QPA_PLATFORMTHEME='qt5ct';                                   export QT_QPA_PL
 XDG_RUNTIME_DIR='$HOME/.local/run/yukiteru';                    export XDG_RUNTIME_DIR
 GOPATH='/home/yukiteru/.golang';                                export GOPATH
 RUST_SRC_PATH='/usr/local/lib/rustlib/src/rust/library';        export RUST_SRC_PATH
-PIPENV_VENV_IN_PROJECT=1; 					export PIPENV_VENV_IN_PROJECT
 MOZ_WEBRENDER=1;						export MOZ_WEBRENDER
 MOZ_ACCELERATED=1;						export MOZ_ACCELERATED
 

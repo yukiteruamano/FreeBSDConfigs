@@ -6,11 +6,11 @@ ext_if="re0"
 # Basic config 
 set skip on lo0
 set block-policy drop
-set debug urgent
-set optimization normal
-set ruleset-optimization basic
 set state-policy if-bound
 set loginterface $ext_if
+
+# Scrubbing packets
+scrub all
 
 # Block spoofed packets
 antispoof quick for $ext_if
@@ -20,4 +20,5 @@ block in log all
 
 # Only pass out
 pass out on $ext_if proto { tcp, udp, icmp } to any keep state
+
 

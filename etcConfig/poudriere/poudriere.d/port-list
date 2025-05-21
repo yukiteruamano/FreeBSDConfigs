@@ -1,1 +1,5 @@
 multimedia/mpv
+x11-wm/picom
+graphics/drm-kmod
+graphics/drm-61-kmod
+graphics/gpu-firmware-kmod

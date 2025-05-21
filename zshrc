@@ -1,4 +1,5 @@
 # If you come from bash you might have to change your $PATH.
+# export PATH=$HOME/bin:$HOME/.local/bin:/usr/local/bin:$PATH
 
 # GOPATH
 export GOPATH=$HOME/.golang
@@ -9,11 +10,11 @@ export RUST_SRC_PATH="/usr/local/lib/rustlib/src/rust/library"
 # PATH from system
 export PATH=$HOME/bin:$GOPATH/bin:$HOME/.config/emacs/bin:$HOME/.cargo/bin:$HOME/.local/bin:$PATH
 
-# Path to your oh-my-zsh installation.
+# Path to your Oh My Zsh installation.
 export ZSH="$HOME/.oh-my-zsh"
 
 # Set name of the theme to load --- if set to "random", it will
-# load a random theme each time oh-my-zsh is loaded, in which case,
+# load a random theme each time Oh My Zsh is loaded, in which case,
 # to know which specific one was loaded, run: echo $RANDOM_THEME
 # See https://github.com/ohmyzsh/ohmyzsh/wiki/Themes
 ZSH_THEME="bira"
@@ -84,7 +85,6 @@ plugins=(git tmux)
 ZSH_TMUX_AUTOSTART=true 
 ZSH_TMUX_CONFIG=$HOME/.tmux.conf
 
-# Cargamos todo oh-my-zsh
 source $ZSH/oh-my-zsh.sh
 
 #####################################################################
@@ -108,13 +108,6 @@ export MOZ_WEBRENDER=1
 
 # GPG
 export GPG_TTY=`tty`
-
-# PIPENV
-export PIPENV_VENV_IN_PROJECT=1
-eval "$(_PIPENV_COMPLETE=zsh_source pipenv)"
-
-# FZF
-# eval "$(fzf --zsh)"
 
 # Direnv
 eval "$(direnv hook zsh)"

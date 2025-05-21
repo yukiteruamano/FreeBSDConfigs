@@ -3,11 +3,10 @@
 ;; Place your private configuration here! Remember, you do not need to run 'doom
 ;; sync' after modifying this file!
 
-
 ;; Some functionality uses this to identify you, e.g. GPG configuration, email
 ;; clients, file templates and snippets. It is optional.
-(setq user-full-name "José Maldonado"
-      user-mail-address "josemald89@gmail.com")
+(setq user-full-name "Jose Maldonado"
+      user-mail-address "yukiteruamano@volfread.xyz")
 
 ;; Doom exposes five (optional) variables for controlling fonts in Doom:
 ;;
@@ -15,13 +14,13 @@
 ;; - `doom-variable-pitch-font' -- a non-monospace font (where applicable)
 ;; - `doom-big-font' -- used for `doom-big-font-mode'; use this for
 ;;   presentations or streaming.
-;; - `doom-unicode-font' -- for unicode glyphs
+;; - `doom-symbol-font' -- for symbols
 ;; - `doom-serif-font' -- for the `fixed-pitch-serif' face
 ;;
 ;; See 'C-h v doom-font' for documentation and more examples of what they
 ;; accept. For example:
 ;;
-(setq doom-font (font-spec :family "FiraMono Nerd Font Mono" :size 11 :weight 'regular)
+(setq doom-font (font-spec :family "FiraMono Nerd Font Mono" :size 11 :weight 'semi-light)
       doom-variable-pitch-font (font-spec :family "FiraMono Nerd Font Mono" :size 11))
 ;;
 ;; If you or Emacs can't find your font, use 'M-x describe-font' to look them
@@ -41,6 +40,7 @@
 ;; If you use `org' and don't want your org files in the default location below,
 ;; change `org-directory'. It must be set before org loads!
 (setq org-directory "~/org/")
+
 
 ;; Whenever you reconfigure a package, make sure to wrap your config in an
 ;; `after!' block, otherwise Doom's defaults may override your settings. E.g.
@@ -155,13 +155,13 @@
 ;; =========================================================================
 
 ;; Python3 configuration
-(setq python-shell-interpreter "/usr/local/bin/python3")
-(setq flycheck-python-pycompile-executable "/usr/local/bin/python3")
-(setq python-shell-exec-path "/usr/local/bin/python3")
+(setq python-shell-interpreter "/usr/local/bin/python3.11")
+(setq flycheck-python-pycompile-executable "/usr/local/bin/python3.11")
+(setq python-shell-exec-path "/usr/local/bin/python3.11")
 
 ;; Python MS Stubs (Sync for Git)
 (setq lsp-pyright-use-library-code-for-types t) 
-(setq lsp-pyright-stub-path (concat (getenv "HOME") "/DEVEL/python-type-stubs/stubs"))
+(setq lsp-pyright-stub-path (concat (getenv "HOME") "/.config/doom/python-type-stubs/stubs"))
 
 ;; Config for ipython and jupyter
 (setq +python-ipython-repl-args '("-i" "--simple-prompt" "--no-color-info"))
@@ -257,5 +257,5 @@
 ;; =========================================================================
 
 ;; Pipenv 
-(global-set-key (kbd "C-c P a") 'pipenv-activate)
-(global-set-key (kbd "C-c P d") 'pipenv-deactivate)
+;; (global-set-key (kbd "C-c P a") 'pipenv-activate)
+;; (global-set-key (kbd "C-c P d") 'pipenv-deactivate)
