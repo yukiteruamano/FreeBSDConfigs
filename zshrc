@@ -102,7 +102,7 @@ export CHARSET="UTF-8"
 export EDITOR="vim" 
 export PAGER="less" 
 export QT_QPA_PLATFORMTHEME="qt5ct" 
-export XDG_RUNTIME_DIR="$HOME/.local/run/yukiteru"
+export XDG_RUNTIME_DIR="/var/run/user/$(id -u)"
 export MOZ_ACCELERATED=1
 export MOZ_WEBRENDER=1
 
