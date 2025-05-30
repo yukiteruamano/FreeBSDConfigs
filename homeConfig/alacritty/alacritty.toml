@@ -71,7 +71,7 @@ cursor = "#B4BEFE"
 text = "#1E1E2E"
 
 [font]
-size = 9
+size = 10
 
 [font.bold]
 family = "Terminus"

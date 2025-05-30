@@ -8,7 +8,7 @@ devfs_system_ruleset="devfsrules_common"
 microcode_update_enable="YES"
 
 # ifconfig for re0
-ifconfig_re0="inet 192.168.10.9 netmask 255.255.255.0"
+ifconfig_re0="inet 192.168.10.4 netmask 255.255.255.0"
 defaultrouter="192.168.10.1"
 
 # Firewall
@@ -24,7 +24,7 @@ powerd_flags="-a hiadaptive"
 openntpd_enable="YES"
 
 # Desktop daemon
-slim_enable="YES" 
+sddm_enable="YES"
 dbus_enable="YES"
 
 # Webcam
@@ -43,3 +43,8 @@ anacron_flags="-s"
 autofs_enable="YES"
 nfsuserd_enable="YES"
 nfsuserd_flags="-domain home.arpa"
+
+# VM-Bhyve
+vm_enable="YES"
+vm_dir="zfs:poudrierezfs/vm-bhyve"
+

@@ -1,0 +1,35 @@
+#
+# .login - csh login script, read by login shell, after `.cshrc" at login.
+#
+# See also csh(1), environ(7).
+#
+
+# Query terminal size; useful for serial lines.
+if ( -x /usr/bin/resizewin ) /usr/bin/resizewin -z
+
+# Display a random cookie on each login.
+if ( -x /usr/bin/fortune ) /usr/bin/fortune freebsd-tips
+
+# Personal configs
+setenv EDITOR   "vim"
+setenv PAGER    "less"
+
+# Actual user
+set ACTUAL_USER=`id -u`
+
+# Personal exports
+setenv QT_QPA_PLATFORMTHEME "qt5ct"
+setenv XDG_RUNTIME_DIR "/var/run/user/$ACTUAL_USER"
+setenv GOPATH "$HOME/.golang"
+setenv RUST_SRC_PATH "/usr/local/lib/rustlib/src/rust/library"
+setenv MOZ_ACCELERATED 1
+setenv MOZ_WEBRENDER 1
+setenv FREETYPE_PROPERTIES "cff:no-stem-darkening=0.0 autofitter:no-stem-darkening=0.0"
+setenv XCURSOR_SIZE 16
+setenv XCURSOR_THEME "Adwaita"
+setenv XKB_DEFAULT_LAYOUT "us"
+setenv XKB_DEFAULT_VARIANT "intl"
+
+# Language setting for user
+setenv LANG "es_ES.UTF-8"
+setenv CHARSET "UTF-8"

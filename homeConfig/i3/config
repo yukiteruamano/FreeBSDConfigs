@@ -29,7 +29,6 @@ set $mantle    #181825
 set $crust     #11111b
 
 # I prefer to use the Win key as the mod key.
-# Arch Linux.
 set $mod Mod4
 
 # Default font for i3.
@@ -141,8 +140,9 @@ bindsym $mod+Return exec "alacritty"
 
 # Work quick access
 bindsym $mod+Shift+F5 exec "thunar"
-bindsym $mod+Shift+F6 exec "firefox"
+bindsym $mod+Shift+F6 exec "chrome"
 bindsym $mod+Shift+F7 exec "thunderbird"
+bindsym $mod+Shift+F8 exec "firefox"
 bindsym $mod+Shift+g exec "gimp"
 bindsym $mod+Shift+f exec "flameshot"
 bindsym $mod+Shift+t exec "telegram-desktop"
@@ -225,6 +225,9 @@ client.background        $base
 
 # Randr
 #exec --no-startup-id "bash $HOME/.local/bin/randr-monitors"
+
+# Xsettingsd
+exec --no-startup-id "xsettingsd"
 
 # Picom
 exec --no-startup-id "picom --config $HOME/.config/picom/config"
