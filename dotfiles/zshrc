@@ -102,11 +102,14 @@ export CHARSET="UTF-8"
 export EDITOR="vim" 
 export PAGER="less" 
 export QT_QPA_PLATFORMTHEME="qt5ct" 
-export XDG_RUNTIME_DIR="/var/run/user/$(id -u)"
+export XDG_RUNTIME_DIR="/var/run/xdg/$(id -u -n)"
 export MOZ_ACCELERATED=1
 export MOZ_WEBRENDER=1
 export FREETYPE_PROPERTIES="cff:no-stem-darkening=0.0 autofitter:no-stem-darkening=0.0"
 export XCURSOR_SIZE=16
+export XCURSOR_THEME="Adwaita"
+export XKB_DEFAULT_LAYOUT="us"
+export XKB_DEFAULT_VARIANT="intl"
 
 # GPG
 export GPG_TTY=`tty`

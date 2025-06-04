@@ -42,11 +42,11 @@ if ($?prompt) then
 endif
 
 # Actual user
-set ACTUAL_USER=`id -u`
+set ACTUAL_USER=`id -u -n`
 
 # Personal exports
 setenv QT_QPA_PLATFORMTHEME "qt5ct"
-setenv XDG_RUNTIME_DIR "/var/run/user/$ACTUAL_USER"
+setenv XDG_RUNTIME_DIR "/var/run/xdg/$ACTUAL_USER"
 setenv GOPATH "$HOME/.golang"
 setenv RUST_SRC_PATH "/usr/local/lib/rustlib/src/rust/library"
 setenv MOZ_ACCELERATED 1

@@ -54,11 +54,11 @@ EDITOR='vim'							export EDITOR
 PAGER='less'							export PAGER
 
 # Actual user
-ACTUAL_USER=$(id -u)
+ACTUAL_USER=$(id -u -n)
 
 # Personal exports
 QT_QPA_PLATFORMTHEME='qt5ct';                       		export QT_QPA_PLATFORMTHEME
-XDG_RUNTIME_DIR=/var/run/user/$ACTUAL_USER;			export XDG_RUNTIME_DIR
+XDG_RUNTIME_DIR=/var/run/xdg/$ACTUAL_USER;			export XDG_RUNTIME_DIR
 GOPATH=$HOME/.golang;						export GOPATH
 RUST_SRC_PATH='/usr/local/lib/rustlib/src/rust/library';	export RUST_SRC_PATH
 MOZ_ACCELERATED=1;						export MOZ_ACCELERATED
