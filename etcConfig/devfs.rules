@@ -1,0 +1,7 @@
+[devfsrules_common=10]
+# Acceso a USB
+add path 'da[0-9]\*' mode 0660
+add path 'ugen[0-9]\*' mode 0660
+add path 'usbctl' mode 0660
+add path 'usb/\*' mode 0660
+

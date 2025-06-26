@@ -145,7 +145,7 @@ bindsym $mod+Shift+F7 exec "thunderbird"
 bindsym $mod+Shift+F8 exec "firefox"
 bindsym $mod+Shift+g exec "gimp"
 bindsym $mod+Shift+f exec "flameshot"
-bindsym $mod+Shift+t exec "telegram-desktop"
+bindsym $mod+Shift+t exec "Telegram"
 
 # Audio quick access
 bindsym $mod+Shift+F9 exec "alacritty -e ncmpcpp"
@@ -224,7 +224,7 @@ client.background        $base
 ## Autostart applicatons ##
 
 # Randr
-#exec --no-startup-id "bash $HOME/.local/bin/randr-monitors"
+exec --no-startup-id "bash $HOME/.local/bin/randr-monitors"
 
 # Xsettingsd
 exec --no-startup-id "xsettingsd"

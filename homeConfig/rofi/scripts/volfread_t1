@@ -14,7 +14,7 @@ dir="$HOME/.config/rofi/powermenu/type-1"
 theme='style-2'
 
 # CMDs
-uptime="`uptime | cut -d " " -f 6-11`"
+uptime="`uptime | cut -d " " -f 4-15`"
 host=`hostname`
 
 # Options
@@ -23,7 +23,6 @@ reboot='󰤁 Reboot'
 lock='󱅞  Lock'
 logout='󰍃 Logout'
 novpn='  No VPN'
-vpnwork='  VPN Work'
 wireguard='  Wireguard Personal'
 yes='  Yes'
 no='  No'
@@ -56,7 +55,7 @@ confirm_exit() {
 
 # Pass variables to rofi dmenu
 run_rofi() {
-	echo -e "$lock\n$logout\n$reboot\n$shutdown\n$novpn\n$vpnwork\n$wireguard" | rofi_cmd
+	echo -e "$lock\n$logout\n$reboot\n$shutdown\n$novpn\n$wireguard" | rofi_cmd
 }
 
 # Execute Command
@@ -80,9 +79,6 @@ chosen="$(run_rofi)"
 case ${chosen} in
     $shutdown)
 		run_cmd --shutdown
-        ;;
-    $vpnwork)
-		doas /usr/local/bin/wireguard-control work
         ;;
     $wireguard)
 		doas /usr/local/bin/wireguard-control personal

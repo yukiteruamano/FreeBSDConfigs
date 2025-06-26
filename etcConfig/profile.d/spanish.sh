@@ -10,3 +10,4 @@ MOZ_WEBRENDER=1;						export MOZ_WEBRENDER
 XDG_RUNTIME_DIR="/var/run/user/$(id -u)";                       export XDG_RUNTIME_DIR
 GOPATH="$HOME/.golang";		                                export GOPATH
 RUST_SRC_PATH="/usr/local/lib/rustlib/src/rust/library";        export RUST_SRC_PATH
+
