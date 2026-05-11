@@ -1,0 +1,26 @@
+#!/usr/bin/env bash
+
+# Buscamos el PID y el estado (state) del proceso swayidle
+# En FreeBSD, 'ps -o state' nos devuelve una cadena de caracteres
+IDLE_PID=$(pgrep swayidle)
+
+if [ -z "$IDLE_PID" ]; then
+    notify-send "Error" "Swayidle no se está ejecutando"
+    exit 1
+fi
+
+# Obtenemos el estado actual del proceso
+# 'ps -p' filtra por PID, 'h' elimina la cabecera, 'o state' solo muestra el estado
+STATE=$(ps -p "$IDLE_PID" -o state | tail -n 1)
+
+# Lógica de intercambio (Toggle)
+# En FreeBSD, el estado 'T' indica que el proceso está suspendido (Stopped)
+if [[ "$STATE" == *"T"* ]]; then
+    # Si está detenido, lo reanudamos
+    kill -CONT "$IDLE_PID"
+    notify-send "Idle Inhibitor" "Bloqueo automático: ACTIVADO" -i dialog-warning
+else
+    # Si está en cualquier otro estado (como S o R), lo pausamos
+    kill -STOP "$IDLE_PID"
+    notify-send "Idle Inhibitor" "Bloqueo automático: DESACTIVADO" -i dialog-information
+fi

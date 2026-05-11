@@ -74,16 +74,14 @@ net.local.stream.sendspace=65536
 kern.random.fortuna.minpoolsize=256
 
 # Audio default
-hw.snd.default_unit=6
+hw.snd.default_unit=3
 
 # Audio equalizer
 # Aplicado al PCM por defecto (built-in sound-card)
-dev.pcm.6.eq=1
-dev.pcm.7.eq=1
+dev.pcm.3.eq=1
 
 # Mejor calidad en el EQ
 hw.snd.feeder_rate_quality=4
 
 # Subimos le volumen por defecto (más y hay clipping)
 # hw.snd.vpc_0db=30
-

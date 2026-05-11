@@ -1,0 +1,26 @@
+#!/usr/bin/env bash
+
+# Definimos el paso de incremento/decremento
+STEP=10
+
+# Verificamos si existe el comando backlight
+if ! command -v backlight &> /dev/null; then
+    echo "Error: El comando 'backlight' no se encuentra en el sistema."
+    exit 1
+fi
+
+case "$1" in
+    full)
+        # Sube el brillo
+        backlight 100
+        ;;
+    down)
+        # Baja el brillo
+        backlight - $STEP
+        ;;
+    *)
+        # Mensaje de uso en caso de error
+        echo "Uso: $0 {full|down}"
+        exit 1
+        ;;
+esac

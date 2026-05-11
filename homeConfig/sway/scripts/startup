@@ -1,0 +1,41 @@
+#!/usr/bin/env bash
+
+# Usamos pgrep -u para buscar solo procesos del usuario actual
+run_once() {
+    pgrep -u "$USER" -x "$1" > /dev/null || ("$@" &)
+}
+
+# Servicios de Audio
+run_once pipewire
+run_once pipewire-pulse
+run_once musicpd "$HOME/.config/mpd/mpd.conf"
+
+# Interfaz y Notificaciones
+# Usamos pgrep -f aquí porque el script de waybar puede tener un nombre distinto al binario final
+pgrep -u "$USER" -f "waybar" > /dev/null || (bash "$HOME/.config/waybar/launch_waybar.sh" &)
+run_once mako
+run_once kanshi
+
+# nwg-look se ejecuta siempre para refrescar el entorno GTK en la sesión actual
+nwg-look -a
+
+# XDG Desktop Portals (Crítico para compartir pantalla y archivos)
+# En FreeBSD las rutas en /usr/local/libexec son fijas, así es correcto
+pgrep -u "$USER" -f "xdg-desktop-portal-gtk" > /dev/null || (/usr/local/libexec/xdg-desktop-portal-gtk -r &)
+pgrep -u "$USER" -f "xdg-desktop-portal-wlr" > /dev/null || (/usr/local/libexec/xdg-desktop-portal-wlr -r &)
+
+# Esperar un momento para que los backends se registren en DBus antes del portal principal
+if ! pgrep -u "$USER" -x "xdg-desktop-portal" > /dev/null; then
+    (sleep 2 && /usr/local/libexec/xdg-desktop-portal -r &)
+fi
+
+# Gestión de inactividad (Swayidle)
+# Verificamos si el binario 'swayidle' ya está corriendo.
+# Si no, ejecutamos tu script personal en segundo plano.
+if ! pgrep -u "$USER" -x "swayidle" > /dev/null; then
+    bash "$HOME/.config/sway/scripts/sway_idle" &
+fi
+
+# Establecemos el wallpaper
+run_once waypaper --restore
+#run_once swaybg -i $HOME/.lock.png 

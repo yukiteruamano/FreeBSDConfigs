@@ -24,6 +24,7 @@ lock='󱅞  Lock'
 logout='󰍃 Logout'
 novpn='  No VPN'
 wireguard='  Wireguard Personal'
+inhibitor='⏼  Idle Inhibitor'
 yes='  Yes'
 no='  No'
 
@@ -55,7 +56,7 @@ confirm_exit() {
 
 # Pass variables to rofi dmenu
 run_rofi() {
-	echo -e "$lock\n$logout\n$reboot\n$shutdown\n$novpn\n$wireguard" | rofi_cmd
+	echo -e "$inhibitor\n$lock\n$novpn\n$wireguard\n$logout\n$reboot\n$shutdown" | rofi_cmd
 }
 
 # Execute Command
@@ -67,7 +68,7 @@ run_cmd() {
 		elif [[ $1 == '--reboot' ]]; then
 			shutdown -r now
 		elif [[ $1 == '--logout' ]]; then
-			i3-msg exit
+			swaymsg exit
 		fi
 	else
 		exit 0
@@ -80,17 +81,20 @@ case ${chosen} in
     $shutdown)
 		run_cmd --shutdown
         ;;
-    $wireguard)
-		doas /usr/local/bin/wireguard-control personal
-        ;;
-    $novpn)
-		doas /usr/local/bin/wireguard-control novpn
-        ;;
     $reboot)
 		run_cmd --reboot
         ;;
+    $novpn)
+		doas /usr/local/bin/wireguardctl down
+        ;;
+    $wireguard)
+		doas /usr/local/bin/wireguardctl up
+	;;
     $lock)
-		i3lock -t -i /home/yukiteru/.lock.png --color=000000
+		swaylock
+        ;;
+    $inhibitor)
+		$HOME/.config/sway/scripts/sway_inhibitor
         ;;
     $logout)
 		run_cmd --logout

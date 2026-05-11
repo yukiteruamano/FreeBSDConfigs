@@ -1,0 +1,186 @@
+@define-color rosewater #f4dbd6;
+@define-color flamingo #f0c6c6;
+@define-color pink #f5bde6;
+@define-color mauve #c6a0f6;
+@define-color red #ed8796;
+@define-color maroon #ee99a0;
+@define-color peach #f5a97f;
+@define-color yellow #eed49f;
+@define-color green #a6da95;
+@define-color teal #8bd5ca;
+@define-color sky #91d7e3;
+@define-color sapphire #7dc4e4;
+@define-color blue #8aadf4;
+@define-color lavender #b7bdf8;
+@define-color text #cad3f5;
+@define-color subtext1 #b8c0e0;
+@define-color subtext0 #a5adcb;
+@define-color overlay2 #939ab7;
+@define-color overlay1 #8087a2;
+@define-color overlay0 #6e738d;
+@define-color surface2 #5b6078;
+@define-color surface1 #494d64;
+@define-color surface0 #363a4f;
+@define-color base #24273a;
+@define-color mantle #1e2030;
+@define-color crust #181926;
+
+* {
+    border: none;
+    border-radius: 0;
+    font-family: FiraCode Nerd Font;
+    font-size: 12px;
+    min-height: 0;
+}
+
+window#waybar {
+    background: transparent;
+    color: white;
+}
+
+#workspaces {
+	background-color: @base;
+	margin: 5px;
+	margin-left: 10px;
+	border-radius: 5px;
+}
+#workspaces button {
+    padding: 5px 10px;
+    color: @text;
+}
+
+#workspaces button.focused {
+    color: @crust;
+    background-color: @blue;
+    border-radius: 5px;
+}
+
+#workspaces button:hover {
+	background-color: @blue;
+	color: @crust;
+	border-radius: 5px;
+}
+
+#custom-date, #clock, #custom-battery, #pulseaudio, #custom-lan, #custom-vpn, #cpu, #custom-cpu_temp, #memory, #language, #mpd {
+	background-color: @base;
+	padding: 5px 10px;
+	margin: 5px 0px;
+}
+
+#custom-date {
+	color: @mauve;
+}
+
+#tray {
+	background-color: @base;
+	border-radius: 5px;
+	margin-right: 10px;
+	margin-top: 5px;
+	margin-bottom: 5px;
+	margin-left: 0px;
+	padding: 5px 10px;
+}
+
+#custom-power {
+	color: @red;
+	background-color: @base;
+	border-radius: 5px;
+	margin-right: 10px;
+	margin-top: 5px;
+	margin-bottom: 5px;
+	margin-left: 0px;
+	padding: 5px 10px;
+}
+
+#clock {
+    color: @mauve;
+    border-radius: 0px 5px 5px 0px;
+    margin-right: 10px;
+}
+
+#custom-battery.charging {
+    color: @green;
+    animation: blink 1s infinite;
+}
+
+#custom-battery.normal {
+    color: @green;
+}
+
+#custom-battery.warning {
+    color: @yellow;
+}
+
+#custom-battery.critical {
+    color: @red;
+    animation: blink 1s infinite;
+}
+
+#pulseaudio {
+	color: @green;
+}
+
+#pulseaudio.muted {
+	color: @red;
+}
+
+#custom-lan.connected {
+    color: @green;
+}
+
+#custom-lan.disconnected {
+    color: @red;
+}
+
+#custom-vpn.connected {
+    color: @green;
+}
+
+#custom-vpn.disconnected {
+    color: @red;
+}
+
+#cpu {
+	color: @green;
+}
+
+#memory {
+	color: @green;
+}
+
+#language {
+	color: @green;
+}
+
+#mpd {
+	color: @green;
+}
+
+#mpd.disconnected {
+	color: @mauve;
+}
+
+#mpd.playing {
+	color: @green;
+}
+
+#mpd.paused {
+	color: @green;
+}
+
+#mpd.stopped {
+	color: @mauve;
+}
+
+#custom-cpu_temp.normal {
+    color: @blue;
+}
+
+#custom-cpu_temp.warning {
+    color: @yellow;
+}
+
+#custom-cpu_temp.critical {
+    color: @red;
+    font-weight: bold;
+}

@@ -1,0 +1,1 @@
+NFS    -rw,nfsv4,tcp,timeo=100    192.168.10.2:/mnt/zpool-data/NFS

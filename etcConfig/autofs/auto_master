@@ -1,0 +1,8 @@
+#
+# Automounter master map, see auto_master(5) for details.
+#
+#/net		-hosts		-nobrowse,nosuid,intr
+#/media		-media		-nosuid,noatime,autoro
+#/-		-noauto
+
+/mnt	/etc/autofs/nfs_shares    -nosuid,soft,intr,timeout=5

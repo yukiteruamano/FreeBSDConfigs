@@ -1,15 +1,16 @@
 # Kernel modules
-kld_list="${kld_list} aesni amdgpu amdtemp cpuctl fusefs cuse"
+kld_list="${kld_list} aesni coretemp cpuctl fusefs cuse i915kms acpi_video"
 
 # devfs rules
 devfs_system_ruleset="devfsrules_common"
 
-# Microcode update for AMD
-microcode_update_enable="YES"
-
 # ifconfig for re0
-ifconfig_re0="inet 192.168.10.4 netmask 255.255.255.0"
-defaultrouter="192.168.10.1"
+#ifconfig_em0="inet 192.168.10.4 netmask 255.255.255.0 group internet"
+#defaultrouter="192.168.10.1"
+
+# Wlan
+wlans_iwlwifi0="wlan0"
+ifconfig_wlan0="WPA DHCP group internet"
 
 # Firewall
 pf_enable="YES"
@@ -17,19 +18,17 @@ pf_rules="/etc/pf.conf"
 pflog_enable="YES"
 pflog_file="/var/log/pflog"
 
-# Powerd flags
-powerd_flags="-a hiadaptive" 
-
 # Time
 openntpd_enable="YES"
 
 # Desktop daemon
-sddm_enable="YES"
 dbus_enable="YES"
-
+var_run_enable="YES"
+seatd_enable="YES"
+ 
 # Webcam
 webcamd_enable="YES"
-webcamd_0_flags="-d ugen1.3"
+webcamd_0_flags="-N CNFHH53Q253440044750-IntegratedWebcamHD"
 
 # Wireguard
 wireguard_enable="YES"
@@ -41,10 +40,12 @@ anacron_flags="-s"
 
 # Automount on access
 autofs_enable="YES"
-nfsuserd_enable="YES"
-nfsuserd_flags="-domain home.arpa"
+nfs_client_enable="YES"
+#nfsuserd_enable="YES"
+#nfsuserd_flags="-domain home.arpa"
 
 # VM-Bhyve
-vm_enable="YES"
-vm_dir="zfs:poudrierezfs/vm-bhyve"
+#vm_enable="YES"
+#vm_dir="zfs:poudrierezfs/vm-bhyve"
+
 

@@ -1,0 +1,136 @@
+{
+    "position": "top", 
+    "output": ["eDP-1", "HDMI-A-1"],
+    "height": 24,
+    "modules-left": ["sway/workspaces"],
+    "modules-right": ["mpd", "cpu", "custom/cpu_temp", "memory", "custom/vpn", "custom/lan", "pulseaudio", "custom/battery", "sway/language", "custom/date", "clock", "tray", "custom/power"],
+    // Modules configuration
+	"sway/workspaces": {
+		"disable-scroll": true,
+		"all-outputs": true,
+		"format": "{icon}",
+	 	"persistent_workspaces": {
+	 		"1": [],
+	 		"2": [],
+	 		"3": [],
+	 		"4": [],
+	 		"5": [],
+	 		"6": [],
+	 		"7": [],
+	 		"8": [],
+	 		"9": [],
+	 		"10": []
+	},
+         	"format-icons": {
+             		"1": "󰋜",
+             		"2": "󰖟",
+             		"3": "󰠮",
+             		"4": "󰭹",
+             		"5": "󱓷",
+             		"6": "󱇧",
+             		"7": "󰊢",
+             		"8": "󰖲",
+             		"9": "󰕧",
+             		"10": "󰝚"
+         }
+     },
+	"tray": {
+		"icon-size": 16,
+		"spacing": 5
+	},
+	"custom/battery": {
+		"format": "{}",
+		"return-type": "json",
+		"exec": "$HOME/.config/waybar/bin/battery_status",
+		"interval": 10,
+		"tooltip": false
+	},
+	"custom/cpu_temp": {
+		"interval": 10,
+		"return-type": "json",
+		"exec": "$HOME/.config/waybar/bin/cpu_temp",
+		"format": " {}°C",
+		"max-length": 10,
+		"tooltip": false
+	},
+	"memory": {
+		"interval": 30,
+		"format": "󰍛 {}%",
+		"max-length": 10,
+		"tooltip": false
+	},
+	"sway/language": {
+		"format": " {short} {variant}",
+		"tooltip": false
+	},
+	"cpu": {
+		"interval": 10,
+		"format": " {}%",
+		"max-length": 10,
+		"tooltip": false
+	},
+	"custom/date": {
+    		"format": "󰸗 {}",
+		"interval": 3600,
+		"exec": "$HOME/.config/waybar/bin/waybar-date"
+	},
+	"custom/power": {
+		"format": "󰐥",
+		"on-click": "$HOME/.config/waybar/bin/waybar-power",
+		"tooltip": false
+	},
+	"clock": {
+		"format": "󰅐 {:%H:%M}",
+        	"tooltip-format": "<big>{:%Y %B}</big>\n<tt><small>{calendar}</small></tt>",
+        	"format-alt": "{:%Y-%m-%d}",
+		"interval": 5,
+		"tooltip": false
+	},
+	"custom/lan": {
+		"format": "󰌗 {}",
+		"return-type": "json",
+		"exec": "$HOME/.config/waybar/bin/lan_status",
+		"interval": 5,
+		"tooltip": false
+	},
+	"custom/vpn": {
+		"format": "󰖂 {}",
+		"return-type": "json",
+		"exec": "$HOME/.config/waybar/bin/wg_status",
+		"interval": 5,
+		"tooltip": false
+	},
+	"pulseaudio": {
+		"format": " {volume}%",
+        	"format-muted": "󰖁 Muted",
+		"on-click": "pavucontrol",
+		"max-volume": "100"
+		
+        },
+	"mpd": {
+		"format": "{stateIcon} {consumeIcon}{randomIcon}{repeatIcon}{singleIcon}{artist} - {album} - {title} ({elapsedTime:%M:%S}/{totalTime:%M:%S}) ",
+		"format-disconnected": "Disconnected ",
+		"format-stopped": "{consumeIcon}{randomIcon}{repeatIcon}{singleIcon}Stopped ",
+		"interval": 10,
+		"consume-icons": {
+			"on": " " // Icon shows only when "consume" is on
+		},
+		"random-icons": {
+			"off": "<span color=\"#f53c3c\"></span> ", // Icon grayed out when "random" is off
+			"on": " "
+		},
+		"repeat-icons": {
+			"on": " "
+		},
+		"single-icons": {
+			"on": "1 "
+		},
+		"state-icons": {
+			"paused": "",
+			"playing": ""
+		},
+		"tooltip-format": "MPD (connected)",
+		"tooltip-format-disconnected": "MPD (disconnected)"
+	}
+    }
+}

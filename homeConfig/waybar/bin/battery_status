@@ -1,0 +1,28 @@
+#!/usr/bin/env bash
+
+# Extraemos la capacidad (ej: 100) y el estado (0=discharging, 1=charging)
+CAPACITY=$(acpiconf -i 0 | grep 'Remaining capacity' | awk '{print $3}' | tr -d '%')
+STATE=$(acpiconf -i 0 | grep 'State' | awk '{print $2}')
+
+# Si acpiconf falla, intentamos con apm como plan B
+if [ -z "$CAPACITY" ]; then
+    CAPACITY=$(apm -l)
+fi
+
+# Definimos iconos y clases según el estado
+if [ "$STATE" = "charging" ]; then
+    ICON=""
+    CLASS="charging"
+else
+    ICON=""
+    if [ "$CAPACITY" -lt 20 ]; then
+        CLASS="critical"
+    elif [ "$CAPACITY" -lt 50 ]; then
+        CLASS="warning"
+    else
+        CLASS="normal"
+    fi
+fi
+
+# Salida JSON
+echo "{\"text\": \"$ICON $CAPACITY%\", \"value\": $CAPACITY, \"class\": \"$CLASS\"}"

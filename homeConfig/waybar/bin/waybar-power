@@ -1,0 +1,3 @@
+#!/usr/bin/env bash
+
+swaynag -m 'Are you sure you want to shutdown your device?' -b 'Poweroff' 'shutdown -p now'

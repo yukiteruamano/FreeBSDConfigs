@@ -1,0 +1,11 @@
+#!/usr/bin/env bash
+
+# Comprobamos el estado en FreeBSD
+CHECK_NET=$(ifconfig wg0 | grep 'groups: wg')
+
+if [ -n "$CHECK_NET" ]; then
+    # Salida JSON: text es lo que se ve, class es para el CSS
+    echo "{\"text\": \"VPN\", \"class\": \"connected\"}"
+else
+    echo "{\"text\": \"NO VPN\", \"class\": \"disconnected\"}"
+fi

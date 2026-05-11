@@ -34,9 +34,11 @@ alias g='egrep -i'
 bind ^[[A ed-search-prev-history
 bind ^[[B ed-search-next-history
 
-# # ctrl+arrow allow to jump from words to words
+# # Ctrl+right arrow: go to the next word
+# # Ctrl+left arrow: go to the previous word
 bind "\\e[1;5C" em-next-word
 bind "\\e[1;5D" ed-prev-word
+
 alias history='fc -l'
 
 # Fix home/del for mobaxterm
@@ -48,29 +50,3 @@ PS1="\u@\h:\w \\$ "
 
 # search path for cd(1)
 # CDPATH=:$HOME
-
-# Personal exports
-EDITOR='vim'							export EDITOR
-PAGER='less'							export PAGER
-
-# Actual user
-ACTUAL_USER=$(id -u -n)
-
-# Personal exports
-QT_QPA_PLATFORMTHEME='qt5ct';                       		export QT_QPA_PLATFORMTHEME
-XDG_RUNTIME_DIR=/var/run/xdg/$ACTUAL_USER;			export XDG_RUNTIME_DIR
-GOPATH=$HOME/.golang;						export GOPATH
-RUST_SRC_PATH='/usr/local/lib/rustlib/src/rust/library';	export RUST_SRC_PATH
-MOZ_ACCELERATED=1;						export MOZ_ACCELERATED
-MOZ_WEBRENDER=1;						export MOZ_WEBRENDER
-XCURSOR_SIZE=16;						export XCURSOR_SIZE
-XCURSOR_THEME="Adwaita";                                        export XCURSOR_THEME
-XKB_DEFAULT_LAYOUT="us";                                        export XKB_DEFAULT_LAYOUT
-XKB_DEFAULT_VARIANT="intl";                                     export XKB_DEFAULT_VARIANT
-
-# Font rendering
-FREETYPE_PROPERTIES="cff:no-stem-darkening=0.0 autofitter:no-stem-darkening=0.0"	export FREETYPE_PROPERTIES
-
-# Language setting for user
-LANG='es_ES.UTF-8';						export LANG
-CHARSET='UTF-8';						export CHARSET

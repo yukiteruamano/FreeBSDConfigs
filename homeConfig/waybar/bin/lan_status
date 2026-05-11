@@ -1,0 +1,13 @@
+#!/usr/bin/env bash
+
+# Buscamos 'active' para Ethernet y 'associated' para WiFi
+STATE_EM0=$(ifconfig em0 2>/dev/null | grep -E 'status: active' | wc -l)
+STATE_WLAN0=$(ifconfig wlan0 2>/dev/null | grep -E 'status: (active|associated)' | wc -l)
+
+if [ "$STATE_EM0" -gt 0 ]; then
+    echo "{\"text\": \"LAN\", \"class\": \"connected\"}"
+elif [ "$STATE_WLAN0" -gt 0 ]; then
+    echo "{\"text\": \"WLAN\", \"class\": \"connected\"}"
+else
+    echo "{\"text\": \"NO NET\", \"class\": \"disconnected\"}"
+fi

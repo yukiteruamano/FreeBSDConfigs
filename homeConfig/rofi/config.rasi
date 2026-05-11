@@ -43,7 +43,7 @@ configuration {
 		parse-user:   true;
 		/** Parse system desktop files. */
 		parse-system: true;
-    }
+        }
 
 	/*---------- Run settings ----------*/
 	run-command: "{cmd}";
@@ -78,25 +78,22 @@ configuration {
 
 	/*---------- Misc setting ----------*/
 	terminal: "rofi-sensible-terminal";
-	font: "Noto Mono 12";
+	font: "Fira Code 10";
 	sort: false;
 	threads: 0;
 	click-to-exit: true;
-/*	ignored-prefixes: "";*/
-/*	pid: "/run/user/1000/rofi.pid";*/
 
 	/*---------- File browser settings ----------*/
-    filebrowser {
-/*	  directory: "/home";*/
-      directories-first: true;
-      sorting-method:    "name";
-    }
+        filebrowser {
+          directories-first: true;
+          sorting-method:    "name";
+        }
 
 	/*---------- Other settings ----------*/
-    timeout {
-      action: "kb-cancel";
-      delay:  0;
-    }
+        timeout {
+          action: "kb-cancel";
+          delay:  0;
+        }
 
 	/*---------- Keybindings ----------*/
 /*
