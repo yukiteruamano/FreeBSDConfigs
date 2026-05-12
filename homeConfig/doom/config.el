@@ -80,7 +80,7 @@
 
 (after! flycheck
   ;; Flycheck for Clang
-  (setq-default flycheck-c/c++-clang-executable "/usr/local/bin/clang")
+  (setq-default flycheck-c/c++-clang-executable "/usr/local/bin/clang19")
 )
 
 ;; =========================================================================
@@ -97,6 +97,7 @@
 ;; =========================================================================
 ;; Styling
 ;; =========================================================================
+
 (setq indent-tabs-mode t)
 (setq tab-width 4)
 
@@ -126,31 +127,6 @@
       (c-set-offset 'knr-argdecl-intro 8))
 
 ;; =========================================================================
-;; LSP Mode config
-;; =========================================================================
-
-(after! lsp-mode
-  (setq lsp-log-io nil) 
-  (setq lsp-print-performance t)
-  ;; auto detect workspace and start lang server
-  (setq lsp-auto-guess-root t) 
-  ;; display all of the info returned by document/onHover on bottom, only the symbol if nil.
-  (setq lsp-eldoc-render-all t)) 
-
-;; LSP MODE
-;; Clangd LSP
-(after! lsp-clangd
-  (setq lsp-clangd-binary-path "/usr/local/bin/clangd")
-  (setq lsp-clients-clangd-args
-        '("-j=4"
-          "--background-index"
-          "--clang-tidy"
-          "--completion-style=detailed"
-          "--header-insertion=never"
-          "--header-insertion-decorators=0"))
-  (set-lsp-priority! 'clangd 2))
-
-;; =========================================================================
 ;; Python
 ;; =========================================================================
 
@@ -159,17 +135,50 @@
 (setq flycheck-python-pycompile-executable "/usr/local/bin/python3.11")
 (setq python-shell-exec-path "/usr/local/bin/python3.11")
 
-;; Python MS Stubs (Sync for Git)
-(setq lsp-pyright-use-library-code-for-types t) 
-(setq lsp-pyright-stub-path (concat (getenv "HOME") "/.config/doom/python-type-stubs/stubs"))
-
 ;; Config for ipython and jupyter
 (setq +python-ipython-repl-args '("-i" "--simple-prompt" "--no-color-info"))
 (setq +python-jupyter-repl-args '("--simple-prompt"))
 
+;;  Ruff default checker
+(with-eval-after-load 'python
+  (set-formatter! 'ruff :modes '(python-mode python-ts-mode)))
+
+;; for eglot users
+(with-eval-after-load 'python
+  (set-eglot-client! '(python-mode python-ts-mode) '("ty" "server")))
+
+;; Not necessary for lsp-mode users, because `ty-ls' is already priority = -1
+;; (lower = higher priority). Including this for posterity:
+(with-eval-after-load 'python
+  (set-lsp-priority! 'ty-ls -5)) ; default is -1
+
 ;; DAP mode for python
 (after! dap-mode
   (setq dap-python-debugger 'debugpy))
+
+;; =========================================================================
+;; Eglot
+;; =========================================================================
+
+;; Clangd config
+
+(with-eval-after-load 'cc-mode
+  (set-eglot-client! 'cc-mode '("/usr/local/bin/clangd19" 
+				"-j=4"
+				"--background-index"
+				"-clang-tidy"
+				"--all-scopes-completion"
+				"--completion-style=detailed"
+				"--header-insertion=iwyu"
+				"--header-insertion-decorators=0"
+				)))
+;; Solidity LSP
+
+(with-eval-after-load 'eglot
+  (add-to-list 'eglot-server-programs
+               '(solidity-mode . ("nomicfoundation-solidity-language-server" "--stdio"))))
+
+(add-hook 'solidity-mode-hook 'eglot-ensure)
 
 ;; =========================================================================
 ;; Magit config
@@ -251,11 +260,3 @@
 
 ;; xterm mouse support
 (setq xterm-mouse-mode 1)
-
-;; =========================================================================
-;; Keymap
-;; =========================================================================
-
-;; Pipenv 
-;; (global-set-key (kbd "C-c P a") 'pipenv-activate)
-;; (global-set-key (kbd "C-c P d") 'pipenv-deactivate)
