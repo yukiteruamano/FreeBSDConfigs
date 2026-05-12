@@ -11,8 +11,11 @@ run_once pipewire-pulse
 run_once musicpd "$HOME/.config/mpd/mpd.conf"
 
 # Interfaz y Notificaciones
-# Usamos pgrep -f aquí porque el script de waybar puede tener un nombre distinto al binario final
-pgrep -u "$USER" -f "waybar" > /dev/null || (bash "$HOME/.config/waybar/launch_waybar.sh" &)
+
+# Script de Waybar tiene detección de ejecución
+bash "$HOME/.config/waybar/launch_waybar.sh" &
+
+# Ejecutamos dameon de escritorio
 run_once mako
 run_once kanshi
 
@@ -38,4 +41,3 @@ fi
 
 # Establecemos el wallpaper
 run_once waypaper --restore
-#run_once swaybg -i $HOME/.lock.png 

@@ -7,7 +7,9 @@ STATE_WLAN0=$(ifconfig wlan0 2>/dev/null | grep -E 'status: (active|associated)'
 if [ "$STATE_EM0" -gt 0 ]; then
     echo "{\"text\": \"LAN\", \"class\": \"connected\"}"
 elif [ "$STATE_WLAN0" -gt 0 ]; then
-    echo "{\"text\": \"WLAN\", \"class\": \"connected\"}"
+    # Extraemos el SSID buscando la línea que contiene 'ssid ' y tomando el siguiente elemento
+    SSID=$(ifconfig wlan0 | awk '/ssid / {print $2}')
+    echo "{\"text\": \"WLAN - $SSID\", \"class\": \"connected\"}"
 else
     echo "{\"text\": \"NO NET\", \"class\": \"disconnected\"}"
 fi
