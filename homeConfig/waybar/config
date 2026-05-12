@@ -3,7 +3,7 @@
     "output": ["eDP-1", "HDMI-A-1"],
     "height": 24,
     "modules-left": ["sway/workspaces"],
-    "modules-right": ["mpd", "cpu", "custom/cpu_temp", "memory", "custom/vpn", "custom/lan", "pulseaudio", "custom/battery", "sway/language", "custom/date", "clock", "tray", "custom/power"],
+    "modules-right": ["mpd", "cpu", "custom/cpu_temp", "custom/memory_status", "custom/vpn", "custom/lan", "pulseaudio", "custom/battery", "sway/language", "custom/date", "clock", "tray", "custom/power"],
     // Modules configuration
 	"sway/workspaces": {
 		"disable-scroll": true,
@@ -53,11 +53,15 @@
 		"max-length": 10,
 		"tooltip": false
 	},
-	"memory": {
+	"custom/memory_status": {
 		"interval": 30,
-		"format": "󰍛 {}%",
+		"return-type": "json",
+		"format": "󰍛 {}",
 		"max-length": 10,
-		"tooltip": false
+		"tooltip": true,
+		"interval": 10,
+		"exec": "$HOME/.config/waybar/bin/memory_status"
+
 	},
 	"sway/language": {
 		"format": " {short} {variant}",
@@ -90,14 +94,14 @@
 		"format": "󰌗 {}",
 		"return-type": "json",
 		"exec": "$HOME/.config/waybar/bin/lan_status",
-		"interval": 5,
+		"interval": 10,
 		"tooltip": false
 	},
 	"custom/vpn": {
 		"format": "󰖂 {}",
 		"return-type": "json",
 		"exec": "$HOME/.config/waybar/bin/wg_status",
-		"interval": 5,
+		"interval": 10,
 		"tooltip": false
 	},
 	"pulseaudio": {

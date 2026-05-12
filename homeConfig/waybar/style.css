@@ -61,7 +61,7 @@ window#waybar {
 	border-radius: 5px;
 }
 
-#custom-date, #clock, #custom-battery, #pulseaudio, #custom-lan, #custom-vpn, #cpu, #custom-cpu_temp, #memory, #language, #mpd {
+#custom-date, #clock, #custom-battery, #pulseaudio, #custom-lan, #custom-vpn, #cpu, #custom-cpu_temp, #custom-memory_status, #language, #mpd {
 	background-color: @base;
 	padding: 5px 10px;
 	margin: 5px 0px;
@@ -144,7 +144,7 @@ window#waybar {
 	color: @green;
 }
 
-#memory {
+#custom-memory_status {
 	color: @green;
 }
 

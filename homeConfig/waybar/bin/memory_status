@@ -1,0 +1,19 @@
+#!/usr/bin/env bash
+
+# Tamaño de página y memoria física total
+PAGESIZE=$(sysctl -n hw.pagesize)
+MEM_PHYSICAL=$(sysctl -n hw.physmem)
+
+# Páginas activas y wired (lo que se considera "en uso" real)
+PAGE_ACTIVE=$(sysctl -n vm.stats.vm.v_active_count)
+PAGE_WIRED=$(sysctl -n vm.stats.vm.v_user_wire_count)
+
+# Conversión a MB
+MEM_TOTAL_MB=$(( MEM_PHYSICAL / 1024 / 1024 ))
+MEM_USED_MB=$(( (PAGE_ACTIVE + PAGE_WIRED) * PAGESIZE / 1024 / 1024 ))
+
+# Cálculo de porcentaje
+PERCENT_USED=$(( MEM_USED_MB * 100 / MEM_TOTAL_MB ))
+
+# Salida en formato JSON para Waybar
+echo "{\"text\": \"$PERCENT_USED%\", \"tooltip\": \"Uso: $MEM_USED_MB MB / Total: $MEM_TOTAL_MB MB\"}"
