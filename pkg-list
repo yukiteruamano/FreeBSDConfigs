@@ -102,6 +102,7 @@ duktape-lib
 dvdauthor
 ebook-tools
 ebur128
+editorconfig-core-c
 emacs
 enchant2
 encodings
@@ -168,6 +169,7 @@ gdcm
 gdk-pixbuf-extra
 gdk-pixbuf2
 gegl
+gemini-cli
 geoclue
 geos
 gettext-runtime
@@ -250,6 +252,7 @@ hdr_histogram
 hicolor-icon-theme
 highway
 hs-ShellCheck
+hs-hadolint
 hs-pandoc
 hunspell
 hwdata
@@ -578,6 +581,7 @@ libva-utils
 libvdpau
 libvorbis
 libvpx
+libvterm
 libwacom
 libwmf
 libwnck3
@@ -811,6 +815,7 @@ py311-appdirs
 py311-argon2-cffi
 py311-argon2-cffi-bindings
 py311-arrow
+py311-astroid
 py311-asttokens
 py311-async-lru
 py311-async_generator
@@ -834,6 +839,7 @@ py311-dbus
 py311-debugpy
 py311-decorator
 py311-defusedxml
+py311-dill
 py311-discid
 py311-dnspython
 py311-evdev
@@ -886,6 +892,7 @@ py311-lxml
 py311-markdown
 py311-markupsafe
 py311-matplotlib-inline
+py311-mccabe
 py311-mistune
 py311-mutagen
 py311-mypy_extensions
@@ -959,6 +966,7 @@ py311-stack-data
 py311-terminado
 py311-tinycss2
 py311-tkinter
+py311-tomlkit
 py311-tornado
 py311-traitlets
 py311-trio
@@ -979,6 +987,7 @@ py311-widgetsnbextension
 py311-wsproto
 py311-zope.interface
 pygobject-common
+pylint-py311
 python311
 qbittorrent
 qca-qt6
@@ -1051,6 +1060,9 @@ rnnoise
 roboto-fonts-ttf
 rofi
 rttr
+ruby
+ruby33-gems
+rubygem-asciidoctor
 ruff
 rust
 rust-analyzer
@@ -1065,6 +1077,7 @@ serd
 sfcgal
 shaderc
 shared-mime-info
+shfmt
 signon-qt6
 simdjson
 simdutf
@@ -1123,11 +1136,14 @@ tex-kpathsea
 tex-synctex
 thunar
 thunderbird
+tidy-html5
 tiff
 tinyxml2
 tk86
 tmux
 tree-sitter
+tree-sitter-cli
+tree-sitter-grammars
 twemoji-color-font-ttf
 twolame
 ubuntu-font
