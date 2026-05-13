@@ -1,0 +1,82 @@
+#!/usr/bin/env bash
+
+# Configuración de interfaces
+LAN_IF="em0"
+WLAN_IF="wlan0"
+PARENT_IF="iwlwifi0" # Verifica tu interfaz física con 'sysctl net.wlan.devices'
+
+case "$1" in
+    up)
+        echo "Activando modo WiFi..."
+
+        # 1. Desactivar interfaz LAN
+        service netif stop em0
+
+        # 2. Configurar interfaz WLAN
+        if ! ifconfig $WLAN_IF > /dev/null 2>&1; then
+            ifconfig $WLAN_IF create wlandev $PARENT_IF
+        fi
+
+        # Aplicar grupo 'internet'
+        ifconfig $WLAN_IF group internet
+
+        # 3. Gestión de wpa_supplicant
+        if pgrep -q wpa_supplicant; then
+            echo "wpa_supplicant ya está en ejecución."
+        else
+            echo "Iniciando wpa_supplicant..."
+            wpa_supplicant -s -B -i $WLAN_IF -c /etc/wpa_supplicant.conf
+        fi
+
+        # 4. Gestión de dhclient
+        if pgrep -qf "dhclient: $WLAN_IF"; then
+            echo "dhclient ya está asignado a $WLAN_IF."
+        else
+            echo "Solicitando IP por DHCP..."
+            dhclient $WLAN_IF
+        fi
+
+        # 5. Reiniciar servicios
+        service wireguard restart
+        service pf restart
+
+        echo "WiFi activo en grupo 'internet'"
+        ;;
+
+    down)
+        echo "Desactivando modo WiFi..."
+
+        # 1. Limpieza controlada de procesos
+        if pgrep -q wpa_supplicant; then
+            echo "Matando wpa_supplicant..."
+            killall wpa_supplicant
+        fi
+
+        if pgrep -qf "dhclient: $WLAN_IF"; then
+            echo "Matando dhclient wlan0..."
+            killall dhclient
+        fi
+
+        # 2. Destruir interfaz WLAN
+        if ifconfig $WLAN_IF > /dev/null 2>&1; then
+            echo "Destruyendo iface wlan0..."
+            ifconfig $WLAN_IF destroy
+        fi
+
+        # 3. Levantar LAN y asignar grupo
+        echo "Reiniciando em0..."
+        service netif start em0
+
+        # 4. Reiniciar servicios
+        echo "Reiniciando wireguard y pf..."
+        service wireguard restart
+        service pf restart
+
+        echo "LAN activa en grupo 'internet'. WiFi desactivada."
+        ;;
+
+    *)
+        echo "Uso: $0 {up|down}"
+        exit 1
+        ;;
+esac

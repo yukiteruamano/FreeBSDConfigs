@@ -25,6 +25,8 @@ logout='󰍃 Logout'
 novpn='  No VPN'
 wireguard='  Wireguard Personal'
 inhibitor='⏼  Idle Inhibitor'
+wifion='  WiFi ON'
+wifioff='󰖪  WiFi OFF'
 yes='  Yes'
 no='  No'
 
@@ -56,7 +58,7 @@ confirm_exit() {
 
 # Pass variables to rofi dmenu
 run_rofi() {
-	echo -e "$inhibitor\n$lock\n$novpn\n$wireguard\n$logout\n$reboot\n$shutdown" | rofi_cmd
+	echo -e "$inhibitor\n$lock\n$wifion\n$wifioff\n$novpn\n$wireguard\n$logout\n$reboot\n$shutdown" | rofi_cmd
 }
 
 # Execute Command
@@ -86,9 +88,19 @@ case ${chosen} in
         ;;
     $novpn)
 		doas /usr/local/bin/wireguardctl down
+		notify-send -u critical "Wireguard ha sido desactivado"
         ;;
     $wireguard)
 		doas /usr/local/bin/wireguardctl up
+		notify-send -u normal "Wireguard está activado"
+	;;
+    $wifion)
+		doas /usr/local/bin/wirelessctl up
+		notify-send -u normal "WiFi activado"
+	;;
+    $wifioff)
+		doas /usr/local/bin/wirelessctl down
+		notify-send -u normal "WiFi desactivado"
 	;;
     $lock)
 		swaylock

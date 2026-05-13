@@ -1,0 +1,45 @@
+#!/usr/bin/env bash
+
+# Verificar privilegios
+if [ "$EUID" -ne 0 ]; then 
+    echo "Error: Por favor, ejecuta como root."
+    exit 1
+fi
+
+case "$1" in
+    up)
+        echo "Levantando Wireguard..."
+	
+	service wireguard start
+	service pf restart
+        
+        echo "Interfaz wg0 activa."
+        ;;
+    
+    down)
+        echo "Desactivando Wireguard..."
+	
+	service wireguard stop
+	service pf stop 
+
+	# Hacemos flush compelto de pf
+       	pfctl -F all
+	pfctl -f /etc/pf.conf-clean
+
+        echo "Interfaz wg0 inactiva."
+        ;;
+    
+    status)
+        if ifconfig wg0 >/dev/null 2>&1; then
+            echo "Estado de la VPN:"
+            ifconfig wg0
+        else
+            echo "WireGuard está desactivado (la interfaz no existe)."
+        fi
+        ;;
+    
+    *)
+        echo "Uso: $0 {up|down|status}"
+        exit 1
+        ;;
+esac

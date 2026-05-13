@@ -1,12 +1,16 @@
 #!/usr/bin/env bash
 
 # Buscamos 'active' para Ethernet y 'associated' para WiFi
+# Buscamos IP en inet para estar seguro de que está full activa
 STATE_EM0=$(ifconfig em0 2>/dev/null | grep -E 'status: active' | wc -l)
+IP_EM0=$(ifconfig em0 2>/dev/null | awk '/inet / {print $2}')
 STATE_WLAN0=$(ifconfig wlan0 2>/dev/null | grep -E 'status: (active|associated)' | wc -l)
+IP_WLAN0=$(ifconfig wlan0 2>/dev/null | awk '/inet / {print $2}')
 
-if [ "$STATE_EM0" -gt 0 ]; then
+
+if [ "$STATE_EM0" -gt 0 ] && [ -n "$IP_EM0" ]; then
     echo "{\"text\": \"LAN\", \"class\": \"connected\"}"
-elif [ "$STATE_WLAN0" -gt 0 ]; then
+elif [ "$STATE_WLAN0" -gt 0 ] && [ -n "$IP_WLAN0" ]; then
     # Extraemos el SSID buscando la línea que contiene 'ssid ' y tomando el siguiente elemento
     SSID=$(ifconfig wlan0 | awk '/ssid / {print $2}')
     echo "{\"text\": \"WLAN - $SSID\", \"class\": \"connected\"}"
