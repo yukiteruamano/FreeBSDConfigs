@@ -1,7 +1,8 @@
-background-color=#1E1E2E
-text-color=#D9E0EE
-border-color=#96CDFB
-progress-color=over #302D41
-font=Iosevka Nerd Font 10
+background-color=#24273a
+text-color=#cad3f5
+border-color=#8aadf4
+progress-color=over #c6a0f6
+font=FiraCode Nerd Font 10
 [urgency=high]
-border-color=#F38BA8
+border-color=#ed8796
+

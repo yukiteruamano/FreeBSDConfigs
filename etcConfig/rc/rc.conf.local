@@ -5,12 +5,11 @@ kld_list="${kld_list} aesni coretemp cpuctl fusefs cuse i915kms acpi_video"
 devfs_system_ruleset="devfsrules_common"
 
 # ifconfig for re0
-#ifconfig_em0="inet 192.168.10.4 netmask 255.255.255.0 group internet"
-#defaultrouter="192.168.10.1"
+ifconfig_em0="inet 192.168.10.10 netmask 255.255.255.0 group egress"
+defaultrouter="192.168.10.1"
 
 # Wlan
 wlans_iwlwifi0="wlan0"
-ifconfig_wlan0="WPA DHCP group internet"
 
 # Firewall
 pf_enable="YES"
@@ -41,8 +40,8 @@ anacron_flags="-s"
 # Automount on access
 autofs_enable="YES"
 nfs_client_enable="YES"
-#nfsuserd_enable="YES"
-#nfsuserd_flags="-domain home.arpa"
+nfsuserd_enable="YES"
+nfsuserd_flags="-domain home.arpa"
 
 # VM-Bhyve
 #vm_enable="YES"

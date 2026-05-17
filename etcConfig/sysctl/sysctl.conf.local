@@ -36,10 +36,10 @@ net.inet.tcp.path_mtu_discovery=1
 
 # The OS buffer / backlog queue depth for accepting new TCP connections
 # Default: 128
-#kern.ipc.somaxconn=256
+kern.ipc.somaxconn=1024
 
 # Change to BBR for better performance
-net.inet.tcp.functions_default=bbr
+net.inet.tcp.cc.algorithm=htcp
 
 ## IPv6 Security
 ## Desactiva varias opciones de IPv6
@@ -71,14 +71,15 @@ net.local.stream.sendspace=65536
 #net.link.bridge.pfil_member=0
 
 # Fortuna pseudo-random system
-kern.random.fortuna.minpoolsize=256
+kern.random.fortuna.minpoolsize=512
 
 # Audio default
-hw.snd.default_unit=3
+hw.snd.default_unit=2
 
 # Audio equalizer
 # Aplicado al PCM por defecto (built-in sound-card)
-dev.pcm.3.eq=1
+dev.pcm.0.eq=1
+dev.pcm.2.eq=1
 
 # Mejor calidad en el EQ
 hw.snd.feeder_rate_quality=4

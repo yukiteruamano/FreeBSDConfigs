@@ -1,11 +1,2 @@
-##################################
-# Daily
-
-# Rkhunter
-daily_rkhunter_update_enable="YES"
-daily_rkhunter_update_flags="--update --nocolors"
-daily_rkhunter_check_enable="YES"
-daily_rkhunter_check_flags="--checkall --nocolors --skip-keypress"
-
 # Smartmontools
-daily_status_smart_devices="/dev/ada0 /dev/ada1"
+daily_status_smart_devices="/dev/nvme0"

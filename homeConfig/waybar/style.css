@@ -165,7 +165,7 @@ window#waybar {
 }
 
 #mpd.paused {
-	color: @green;
+	color: @sapphire;
 }
 
 #mpd.stopped {

@@ -15,7 +15,7 @@ run_once musicpd "$HOME/.config/mpd/mpd.conf"
 # Script de Waybar tiene detección de ejecución
 bash "$HOME/.config/waybar/launch_waybar.sh" &
 
-# Ejecutamos dameon de escritorio
+# Ejecutamos daemon de escritorio
 run_once mako
 run_once kanshi
 
@@ -41,3 +41,6 @@ fi
 
 # Establecemos el wallpaper
 run_once waypaper --restore
+
+# Establecemos el cursor
+swaymsg seat seat0 xcursor_theme Catppuccin-Macchiato-Dark 24

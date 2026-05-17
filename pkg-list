@@ -1,6 +1,8 @@
 7-zip
 Andika
 AppStream
+Box2D
+Gentium
 Imath
 WordNet
 aalib
@@ -18,6 +20,7 @@ anacron
 android-tools
 anonymous-pro
 aom
+apr
 argp-standalone
 aspell
 assimp
@@ -38,7 +41,6 @@ bash
 bashdb
 basu
 bear
-bind-tools
 binutils
 boehm-gc
 boehm-gc-threaded
@@ -46,7 +48,6 @@ boost-libs
 brotli
 bsddialog
 bsdisks
-btop
 c-ares
 ca_root_nss
 cairo
@@ -58,6 +59,7 @@ cdrtools
 ceres-solver
 chromium
 clinfo
+clucene
 cmake
 cmake-core
 cmake-doc
@@ -109,6 +111,7 @@ encodings
 es-aspell
 es-hunspell
 es-hyphen
+es-libreoffice
 espeak-ng
 exfat-utils
 exiv2
@@ -144,7 +147,6 @@ frei0r-plugins-cairo
 frei0r-plugins-gavl
 frei0r-plugins-opencv
 fribidi
-fstrm
 fusefs-exfat
 fusefs-hfsfuse
 fusefs-libs
@@ -169,7 +171,6 @@ gdcm
 gdk-pixbuf-extra
 gdk-pixbuf2
 gegl
-gemini-cli
 geoclue
 geos
 gettext-runtime
@@ -231,6 +232,7 @@ gstreamer1-plugins-gl
 gstreamer1-plugins-good
 gstreamer1-plugins-pulse
 gstreamer1-plugins-ugly
+gtar
 gtk-layer-shell
 gtk-mixer
 gtk-update-icon-cache
@@ -243,6 +245,7 @@ gtksourceview4
 gtksourceview5
 gutenprint
 gvfs
+gzip
 hanazono-fonts-ttf
 handbrake
 harfbuzz
@@ -269,6 +272,7 @@ ja-font-sazanami
 jackit
 jansson
 jasper
+javavmwrapper
 jbig2dec
 jbigkit
 jetbrains-mono
@@ -361,6 +365,7 @@ libXt
 libXtst
 libXv
 libXxf86vm
+libabw
 libaccounts-glib
 libaccounts-qt6
 libada
@@ -377,8 +382,10 @@ libbluray
 libcanberra
 libcdio
 libcdio-paranoia
+libcdr01
 libchdr
 libcjson
+libcmis
 libdaemon
 libdatachannel
 libdatrie
@@ -394,18 +401,24 @@ libdrm
 libdvbpsi
 libdvdnav
 libdvdread
+libe-book
 libebml
 libedit
 libei
 libepoll-shim
 libepoxy
+libepubgen
+liberation-fonts-ttf
+libetonyek01
 libevdev
 libevent
 libexif
 libexo
+libexttextcat
 libffi
 libfmt
 libfontenc
+libfreehand
 libfyaml
 libgcrypt
 libgd
@@ -429,10 +442,12 @@ libidn2
 libimagequant
 libinotify
 libinput
+libixion
 libjpeg-turbo
 libjxl
 libkml
 libksba
+liblangtag
 libliftoff
 libltdl
 liblxqt
@@ -444,8 +459,10 @@ libmicrohttpd
 libmng
 libmpdclient
 libmspack
+libmspub01
 libmtdev
 libmtp
+libmwaw03
 libmypaint
 libmysofa
 libnfs
@@ -454,7 +471,11 @@ libnghttp3
 libngtcp2
 libnotify
 libnsgif
+libnumbertext
+libodfgen01
 libogg
+liborcus
+libpagemaker
 libpaper
 libpci
 libpciaccess
@@ -465,8 +486,10 @@ libpsl
 libpwquality
 libqrencode
 libqt6xdg
+libqxp
 libraqm
 libraw
+libreoffice
 libretls
 libretro
 libretro-2048
@@ -540,6 +563,7 @@ libretro-vice-xvic
 libretro-virtualjaguar
 libretro-xrick
 libretro-yabause
+librevenge
 librist
 librsvg2-rust
 librttopo
@@ -556,6 +580,7 @@ libsoxr
 libspiro
 libsrtp2
 libssh2
+libstaroffice
 libsunacl
 libsysctlmibinfo2
 libsysinfo
@@ -571,7 +596,6 @@ libudisks
 libunibreak
 libunistring
 libunwind
-liburcu
 libuuid
 libuv
 libv4l
@@ -579,12 +603,16 @@ libva
 libva-intel-media-driver
 libva-utils
 libvdpau
+libvisio01
 libvorbis
 libvpx
 libvterm
 libwacom
 libwmf
 libwnck3
+libwpd010
+libwpg03
+libwps
 libx264
 libxcb
 libxcvt
@@ -601,13 +629,16 @@ libyaml
 libyuv
 libzen
 libzip
+libzmf
 libzmq4
 lilv
+linuxlibertine-g
 liveMedia
 llhttp
 llvm
 llvm19
 lmdb
+lp_solve
 lsof
 lua53
 lua54
@@ -622,6 +653,7 @@ m4
 mailutils
 mako
 mbedtls3
+md4c
 mediainfo
 meld
 merve
@@ -645,6 +677,7 @@ mpv
 musicpc
 musicpd
 mypaint-brushes
+mythes
 nbytes
 ncmpcpp
 nerd-fonts
@@ -746,6 +779,8 @@ opencv
 opendoas
 openexr
 openh264
+openjdk21
+openjdk21-jre
 openjpeg
 openjph
 openldap26-client
@@ -802,7 +837,6 @@ postgresql18-client
 ppsspp
 proj
 protobuf
-protobuf-c
 pulseaudio
 pwcview
 py311-Automat
@@ -1051,14 +1085,20 @@ qt6-webchannel
 qt6-webengine
 qt6-websockets
 qt6ct
+raptor2
+rar
+rasqal
 re2
 readline
 recordmydesktop
+redland
+restic
 rhash
 ripgrep
 rnnoise
 roboto-fonts-ttf
 rofi
+rsync
 rttr
 ruby
 ruby33-gems
@@ -1074,6 +1114,7 @@ sdocbook-xml
 seahorse
 seatd
 serd
+serf
 sfcgal
 shaderc
 shared-mime-info
@@ -1135,6 +1176,9 @@ tevent
 tex-kpathsea
 tex-synctex
 thunar
+thunar-archive-plugin
+thunar-media-tags-plugin
+thunar-vcs-plugin
 thunderbird
 tidy-html5
 tiff
@@ -1149,6 +1193,8 @@ twolame
 ubuntu-font
 uchardet
 unix-selfauth-helper
+unrar
+unzip
 upnp
 upower
 uriparser
@@ -1180,6 +1226,7 @@ webkit2-gtk_40
 webkit2-gtk_41
 webp
 webrtc-audio-processing
+weechat
 wifi-firmware-iwlwifi-kmod-22000
 wireguard-tools
 wireplumber
@@ -1189,6 +1236,7 @@ woff2
 wx30-gtk3
 wx32-gtk3
 x265
+xarchiver
 xcb-util
 xcb-util-cursor
 xcb-util-errors
@@ -1213,6 +1261,7 @@ xkbcomp
 xkeyboard-config
 xmlcatmgr
 xmlcharent
+xmlsec1
 xorg-fonts-truetype
 xorgproto
 xprop
@@ -1220,12 +1269,14 @@ xset
 xwayland
 xxd
 xxhash
+yajl
 yaru-gtk-themes
 yyjson
 z3
 zathura
 zathura-pdf-poppler
 zeal
+zip
 zix
 zsh
 zstd

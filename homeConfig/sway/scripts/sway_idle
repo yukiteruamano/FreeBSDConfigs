@@ -3,4 +3,6 @@
 swayidle -w \
     timeout 600 'swaylock' \
     timeout 900 'swaymsg "output * power off"' \
-    resume 'swaymsg "output * power on"'
+    resume 'swaymsg "output * power on"' &
+
+exit 0

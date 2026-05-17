@@ -2,12 +2,13 @@
     "position": "top", 
     "output": ["eDP-1", "HDMI-A-1"],
     "height": 24,
+    "fixed-center": false,
     "modules-left": ["sway/workspaces"],
     "modules-right": ["mpd", "cpu", "custom/cpu_temp", "custom/memory_status", "custom/vpn", "custom/lan", "pulseaudio", "custom/battery", "sway/language", "custom/date", "clock", "tray", "custom/power"],
     // Modules configuration
 	"sway/workspaces": {
 		"disable-scroll": true,
-		"all-outputs": true,
+		"all-outputs": false,
 		"format": "{icon}",
 	 	"persistent_workspaces": {
 	 		"1": [],
@@ -112,23 +113,10 @@
 		
         },
 	"mpd": {
-		"format": "{stateIcon} {consumeIcon}{randomIcon}{repeatIcon}{singleIcon}{artist} - {album} - {title} ({elapsedTime:%M:%S}/{totalTime:%M:%S}) ",
+		"format": "{stateIcon} {artist} - {album} - {title} ({elapsedTime:%M:%S}/{totalTime:%M:%S}) ",
 		"format-disconnected": "Disconnected ",
-		"format-stopped": "{consumeIcon}{randomIcon}{repeatIcon}{singleIcon}Stopped ",
+		"format-stopped": "MPD Stopped ",
 		"interval": 10,
-		"consume-icons": {
-			"on": " " // Icon shows only when "consume" is on
-		},
-		"random-icons": {
-			"off": "<span color=\"#f53c3c\"></span> ", // Icon grayed out when "random" is off
-			"on": " "
-		},
-		"repeat-icons": {
-			"on": " "
-		},
-		"single-icons": {
-			"on": "1 "
-		},
 		"state-icons": {
 			"paused": "",
 			"playing": ""

@@ -1,0 +1,60 @@
+#!/usr/bin/env bash
+
+# Configuración de rutas
+REPO="/mnt/NFS/Restic"
+PASS_FILE="/usr/local/etc/restic-password"
+EXCLUDE_FILE="/usr/local/etc/restic-exclude"
+SOURCE="/home/yukiteru"
+
+# Comprobación de binario
+RESTIC_BIN=$(which restic)
+
+if [ -z "$RESTIC_BIN" ]; then
+    echo "Error: restic no está instalado."
+    exit 1
+fi
+
+# Función de respaldo y limpieza
+do_backup() {
+    echo "Iniciando respaldo de $SOURCE..."
+    $RESTIC_BIN -r "$REPO" \
+        --password-file "$PASS_FILE" \
+        --exclude-file "$EXCLUDE_FILE" \
+        backup "$SOURCE" --one-file-system
+
+    echo "Limpiando snapshots antiguos (Manteniendo últimos 4)..."
+    $RESTIC_BIN -r "$REPO" \
+        --password-file "$PASS_FILE" \
+        forget --keep-last 4 --prune
+}
+
+# Función de estadísticas
+do_stats() {
+    echo ""
+    echo "Listado de Snapshots:"
+    echo "*******************************************************"
+    echo ""
+
+    $RESTIC_BIN -r "$REPO" --password-file "$PASS_FILE" snapshots
+
+    echo ""
+    echo "Estadísticas del Repositorio:"
+    echo "*******************************************************"
+    echo ""
+
+    $RESTIC_BIN -r "$REPO" --password-file "$PASS_FILE" stats
+}
+
+# Lógica de argumentos
+case "$1" in
+    backup)
+        do_backup
+        ;;
+    stats)
+        do_stats
+        ;;
+    *)
+        echo "Uso: $0 {backup|stats}"
+        exit 1
+        ;;
+esac

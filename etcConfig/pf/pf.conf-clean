@@ -1,11 +1,10 @@
 # ==============================================================================
-# CONFIGURACIÓN DE PF - FREEBSD (LAN / WLAN / WG)
+# CONFIGURACIÓN DE PF - FREEBSD (LAN / WLAN)
 # ==============================================================================
 
 # --- Definición de interfaces y grupos ---
 # 'egress' debe estar asignado a em0 y wlan0 en /etc/rc.conf
 ext_group = "egress"
-tun_if    = "wg0"
 
 # --- Tablas de red ---
 # Martians: IPs no enrutables. Se excluyen rangos privados usados localmente.
@@ -23,16 +22,13 @@ set block-policy return
 set loginterface $ext_group
 
 # --- Normalización de tráfico (Scrubbing) ---
-# Limpia paquetes y previene fingerprinting del OS
 scrub in on $ext_group all fragment reassemble random-id
 
 # --- Política de denegación por defecto ---
 block log all
 
 # --- Protección Antispoofing ---
-# Los paréntesis permiten que PF actualice las IPs al cambiar de red (DHCP/Static)
 antispoof quick for ($ext_group)
-antispoof quick for ($tun_if)
 
 # --- Filtrado de Martians ---
 block in log quick on $ext_group from { <martians_v4>, <martians_v6> } to any
@@ -42,27 +38,12 @@ block return out quick on $ext_group from any to { <martians_v4>, <martians_v6> 
 # REGLAS DE SALIDA (OUTBOUND)
 # ==============================================================================
 
-# Tráfico hacia la RED LOCAL (Detección dinámica)
-# Permite acceso a servicios LAN (NAS, impresoras) sin importar la red actual.
-pass out quick on $ext_group to ($ext_group:network) keep state
-
-# Control de WireGuard
-# Permite que el túnel se establezca y resuelva el endpoint por la red física.
-pass out quick on $ext_group proto udp to any port 51820 keep state
-
-# Bloquea CUALQUIER otra salida por la red física que no sea lo anterior.
-block out quick on $ext_group all
-
-# Tráfico por la VPN
-# Si wg0 está activa y tienes las rutas, este tráfico será permitido.
-pass out on $tun_if from any keep state
+# Tráfico permitido hacia la LAN e Internet
+pass out on $ext_group from any to any keep state
 
 # ==============================================================================
 # REGLAS DE ENTRADA (INBOUND)
 # ==============================================================================
 
-# Permitir ICMP echo y unreach SOLO desde tu subred local actual
-pass in on $ext_group inet proto icmp from ($ext_group:network) to any icmp-type { echoreq, unreach } keep state
-
-# Permitir ICMP echo y unreach SOLO desde dentro del túnel de la VPN
-pass in on $tun_if inet proto icmp from any to any icmp-type { echoreq, unreach } keep state
+# Permitir ICMP (Ping y diagnóstico) desde LAN e Internet
+pass in on $ext_group inet proto icmp from any to any icmp-type { echoreq, unreach } keep state
