@@ -91,8 +91,8 @@
 ;; Flyspell 
 (after! flyspell
   (setq ispell-program-name "aspell")
-  (setq ispell-extra-args '("--sug-mode=ultra" "--lang=en_US"))
-  (setq flyspell-lazy-idle-seconds 5))
+    (setq ispell-extra-args '("--sug-mode=ultra" "--lang=en_US"))
+    (setq flyspell-lazy-idle-seconds 5))
 
 ;; =========================================================================
 ;; Styling
@@ -134,6 +134,7 @@
 (setq python-shell-interpreter "/usr/local/bin/python3.11")
 (setq flycheck-python-pycompile-executable "/usr/local/bin/python3.11")
 (setq python-shell-exec-path "/usr/local/bin/python3.11")
+(setq treemacs-python-executable "/usr/local/bin/python3.11")
 
 ;; Config for ipython and jupyter
 (setq +python-ipython-repl-args '("-i" "--simple-prompt" "--no-color-info"))

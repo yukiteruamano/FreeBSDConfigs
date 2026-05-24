@@ -40,7 +40,7 @@ if ! pgrep -u "$USER" -x "swayidle" > /dev/null; then
 fi
 
 # Establecemos el wallpaper
-run_once waypaper --restore
+run_once waypaper --random
 
 # Establecemos el cursor
 swaymsg seat seat0 xcursor_theme Catppuccin-Macchiato-Dark 24
