@@ -936,8 +936,6 @@ libwps
 libx264
 libxcb
 libxcvt
-libxfce4util
-libxfce4windowing
 libxkbcommon
 libxkbfile
 libxml2
@@ -1574,7 +1572,6 @@ xdg-user-dirs
 xdg-user-dirs-gtk
 xdg-utils
 xerces-c3
-xfce4-tumbler
 xkbcomp
 xkeyboard-config
 xmlcatmgr
