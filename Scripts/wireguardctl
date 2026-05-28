@@ -1,43 +1,87 @@
 #!/usr/bin/env bash
 
-# Verificar privilegios
-if [ "$EUID" -ne 0 ]; then 
-    echo "Error: Por favor, ejecuta como root."
-    exit 1
-fi
+ENDPOINT_VPN="146.70.187.66"
 
 case "$1" in
     up)
-        echo "Levantando Wireguard..."
-	
-	service wireguard start
-	service pf restart
-        
-        echo "Interfaz wg0 activa."
+        if [ "$EUID" -ne 0 ]; then
+            echo "Error: Requiere root."
+            exit 1
+        fi
+
+        # 1. Detectar dinámicamente el gateway real actual (sea em0 o wlan0)
+        GATEWAY_DINAMICO=$(route -n show default 2>/dev/null | awk '/gateway:/ {print $2}')
+        INTERFAZ_DINAMICA=$(route -n show default 2>/dev/null | awk '/interface:/ {print $2}')
+
+        if [ -z "$GATEWAY_DINAMICO" ]; then
+            echo "Error: No se detecta una ruta por defecto. ¿Estás conectado a la red?"
+            exit 1
+        fi
+
+        echo "Bunkerizando tráfico a través de wg0..."
+        echo "-> Detectado Gateway Físico: $GATEWAY_DINAMICO en $INTERFAZ_DINAMICA"
+
+        # 2. Fijar la ruta excepcional al Endpoint usando la interfaz física real actual
+        route delete $ENDPOINT_VPN >/dev/null 2>&1
+        route add $ENDPOINT_VPN "$GATEWAY_DINAMICO"
+
+        # 3. Quitar la ruta por defecto general e inyectar las mitades por wg0
+        route delete default >/dev/null 2>&1
+        route add -net 0.0.0.0/1 -iface wg0
+        route add -net 128.0.0.0/1 -iface wg0
+
+        # 4. Firewall
+        pfctl -F all && pfctl -f /etc/pf.conf
+        echo "VPN Conectada de forma segura."
         ;;
-    
+
     down)
-        echo "Desactivando Wireguard..."
-	
-	service wireguard stop
-	service pf stop 
+        if [ "$EUID" -ne 0 ]; then
+            echo "Error: Requiere root."
+            exit 1
+        fi
+        echo "Restaurando navegación en claro..."
 
-	# Hacemos flush compelto de pf
-       	pfctl -F all
-	pfctl -f /etc/pf.conf-clean
+        # 1. DETECTAR LA INTERFAZ FÍSICA ACTIVA ACTUAL (em0 o wlan0)
+        # Buscamos cuál interfaz del grupo 'egress' tiene una IP asignada en este momento
+        IF_ACTIVA=$(ifconfig egress 2>/dev/null | awk '/inet / {print $2}' | head -n 1)
 
-        echo "Interfaz wg0 inactiva."
-        ;;
-    
-    status)
-        if ifconfig wg0 >/dev/null 2>&1; then
-            echo "Estado de la VPN:"
-            ifconfig wg0
+        if [ -n "$IF_ACTIVA" ]; then
+            # Si tu IP es 192.168.10.11, esto calcula dinámicamente el gateway como 192.168.10.1
+            GATEWAY_REAL=$(echo "$IF_ACTIVA" | cut -d. -f1-3).1
         else
-            echo "WireGuard está desactivado (la interfaz no existe)."
+            # Gateway de respaldo por si no se detecta IP por alguna razón
+            GATEWAY_REAL="192.168.10.1"
+        fi
+
+        # 2. BORRADO QUIRÚRGICO DE RUTAS VPN
+        route delete -net 0.0.0.0 -netmask 128.0.0.0 >/dev/null 2>&1
+        route delete -net 128.0.0.0 -netmask 128.0.0.0 >/dev/null 2>&1
+        route delete -host "$ENDPOINT_VPN" >/dev/null 2>&1
+        route delete default >/dev/null 2>&1
+
+        # 3. ASIGNACIÓN LIMPIA DE LA RUTA POR DEFECTO REAL
+        echo "-> Reinstalando ruta por defecto: default -> $GATEWAY_REAL"
+        route add default "$GATEWAY_REAL" >/dev/null 2>&1
+
+        # 4. Sincronizar el Firewall limpio
+        pfctl -F all
+        pfctl -f /etc/pf.conf-clean
+
+        echo "Navegación directa en claro restaurada con éxito."
+        ;;
+    status)
+        echo "====================================================="
+        echo " ENRUTAMIENTO DE LA VPN"
+        echo "====================================================="
+        if netstat -rn | grep -q "wg0"; then
+            echo "-> ESTADO: Tráfico blindado por WireGuard (wg0)"
+            netstat -rn | grep -E "(0.0.0.0/1|128.0.0.0/1|$ENDPOINT_VPN)"
+        else
+            echo "-> ESTADO: Modo directo (VPN Desconectada)"
+            netstat -rn | grep "default"
         fi
         ;;
-    
     *)
         echo "Uso: $0 {up|down|status}"
         exit 1

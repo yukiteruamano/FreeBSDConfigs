@@ -1,82 +1,95 @@
 #!/usr/bin/env bash
 
-# Configuración de interfaces
 LAN_IF="em0"
 WLAN_IF="wlan0"
-PARENT_IF="iwlwifi0" # Verifica tu interfaz física con 'sysctl net.wlan.devices'
+PARENT_IF="iwlwifi0"
 
 case "$1" in
     up)
-        echo "Activando modo WiFi..."
+        if [ "$EUID" -ne 0 ]; then
+            echo "Error: Requiere root."
+            exit 1
+        fi
+        echo "Cambiando a modo inalámbrico (WiFi)..."
 
-        # 1. Desactivar interfaz LAN
-        service netif stop em0
+        # 1. Apagamos por completo el DHCP de la LAN y bajamos la interfaz
+        if [ -f "/var/run/dhclient.${LAN_IF}.pid" ]; then
+            kill $(cat /var/run/dhclient.${LAN_IF}.pid) >/dev/null 2>&1
+        fi
+        ifconfig $LAN_IF down
+        ifconfig $LAN_IF delete >/dev/null 2>&1 # Remueve la IP vieja de la tabla
 
-        # 2. Configurar interfaz WLAN
+        # 2. Creamos y levantamos el nodo Wi-Fi
         if ! ifconfig $WLAN_IF > /dev/null 2>&1; then
-            ifconfig $WLAN_IF create wlandev $PARENT_IF
+            ifconfig $WLAN_IF create wlandev $PARENT_IF group egress
         fi
+        ifconfig $WLAN_IF up
 
-        # Aplicar grupo 'internet'
-        ifconfig $WLAN_IF group internet
-
-        # 3. Gestión de wpa_supplicant
-        if pgrep -q wpa_supplicant; then
-            echo "wpa_supplicant ya está en ejecución."
-        else
-            echo "Iniciando wpa_supplicant..."
+        # 3. Autenticación
+        if ! pgrep -q wpa_supplicant; then
             wpa_supplicant -s -B -i $WLAN_IF -c /etc/wpa_supplicant.conf
+            sleep 1
         fi
 
-        # 4. Gestión de dhclient
-        if pgrep -qf "dhclient: $WLAN_IF"; then
-            echo "dhclient ya está asignado a $WLAN_IF."
-        else
-            echo "Solicitando IP por DHCP..."
-            dhclient $WLAN_IF
-        fi
+        # 4. Forzamos una tabla de rutas limpia antes de pedir IP
+        route flush >/dev/null 2>&1
+        dhclient $WLAN_IF
+	service routing restart
 
-        # 5. Reiniciar servicios
-        service wireguard restart
-        service pf restart
-
-        echo "WiFi activo en grupo 'internet'"
+        # 5. Sincronizar PF
+        pfctl -F all && pfctl -f /etc/pf.conf
+        echo "WiFi Activo con tabla de rutas limpia."
         ;;
 
     down)
-        echo "Desactivando modo WiFi..."
+        if [ "$EUID" -ne 0 ]; then
+            echo "Error: Requiere root."
+            exit 1
+        fi
+        echo "Cambiando a modo cableado (LAN)..."
 
-        # 1. Limpieza controlada de procesos
+        # 1. Limpieza total de la interfaz Wi-Fi
+        if [ -f "/var/run/dhclient.${WLAN_IF}.pid" ]; then
+            kill $(cat /var/run/dhclient.${WLAN_IF}.pid) >/dev/null 2>&1
+        fi
         if pgrep -q wpa_supplicant; then
-            echo "Matando wpa_supplicant..."
             killall wpa_supplicant
         fi
-
-        if pgrep -qf "dhclient: $WLAN_IF"; then
-            echo "Matando dhclient wlan0..."
-            killall dhclient
-        fi
-
-        # 2. Destruir interfaz WLAN
+        
         if ifconfig $WLAN_IF > /dev/null 2>&1; then
-            echo "Destruyendo iface wlan0..."
             ifconfig $WLAN_IF destroy
         fi
 
-        # 3. Levantar LAN y asignar grupo
-        echo "Reiniciando em0..."
-        service netif start em0
+        # 2. Forzamos limpieza de rutas muertas antes de levantar la LAN
+        route flush >/dev/null 2>&1
 
-        # 4. Reiniciar servicios
-        echo "Reiniciando wireguard y pf..."
-        service wireguard restart
-        service pf restart
+        # 3. Levantamos la LAN física
+        ifconfig $LAN_IF up
+        dhclient $LAN_IF
 
-        echo "LAN activa en grupo 'internet'. WiFi desactivada."
+	service routing restart
+
+        # 4. Sincronizar PF
+        pfctl -F all && pfctl -f /etc/pf.conf
+        echo "LAN Activa. WiFi destruida y rutas saneadas."
         ;;
 
+    status)
+        echo "====================================================="
+        echo " INTERFAZ FÍSICA CON IP ASIGNADA"
+        echo "====================================================="
+        if ifconfig $LAN_IF 2>/dev/null | grep -q "inet "; then
+            echo "-> ESTADO: Conectado por CABLE ($LAN_IF)"
+            ifconfig $LAN_IF | grep "inet "
+        elif ifconfig $WLAN_IF 2>/dev/null | grep -q "inet "; then
+            echo "-> ESTADO: Conectado por Wi-Fi ($WLAN_IF)"
+            ifconfig $WLAN_IF | grep -E "(inet |ssid )"
+        else
+            echo "-> ESTADO: Desconectado o sin IP asignada."
+        fi
+        ;;
     *)
-        echo "Uso: $0 {up|down}"
+        echo "Uso: $0 {up|down|status}"
         exit 1
         ;;
 esac

@@ -1,11 +1,13 @@
 #!/usr/bin/env bash
 
-# Comprobamos el estado en FreeBSD
-CHECK_NET=$(ifconfig wg0 | grep 'groups: wg')
+# Comprobamos si la ruta de la mitad inferior de internet apunta a wg0
+# 'netstat -rn' es accesible por cualquier usuario y es la fuente de verdad del kernel
+CHECK_VPN=$(netstat -rn | awk '$1 == "0.0.0.0/1" && $4 == "wg0" {print $1}')
 
-if [ -n "$CHECK_NET" ]; then
-    # Salida JSON: text es lo que se ve, class es para el CSS
+if [ -n "$CHECK_VPN" ]; then
+    # Salida JSON cuando el tráfico está bunkerizado
     echo "{\"text\": \"VPN\", \"class\": \"connected\"}"
 else
+    # Salida JSON en navegación directa (Modo claro)
     echo "{\"text\": \"NO VPN\", \"class\": \"disconnected\"}"
 fi

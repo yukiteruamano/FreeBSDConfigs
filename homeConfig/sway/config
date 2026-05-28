@@ -149,7 +149,7 @@ bindsym $mod+Shift+t		exec "Telegram"
 bindsym $mod+Shift+p		exec "pavucontrol"
 
 ## Audio quick access
-bindsym $mod+Shift+F9		exec "alacritty --class=ncmpcpp -e ncmpcpp"
+bindsym $mod+Shift+F9		exec "kitty --class=ncmpcpp -e ncmpcpp"
 bindsym $mod+Shift+F1		exec "mpc stop"
 bindsym $mod+Shift+F2		exec "mpc prev"
 bindsym $mod+Shift+F3		exec "mpc play"
