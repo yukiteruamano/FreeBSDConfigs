@@ -2,7 +2,9 @@
 
 LAN_IF="em0"
 WLAN_IF="wlan0"
-PARENT_IF="iwlwifi0"
+#PARENT_IF="iwlwifi0"
+PARENT_IF="iwx0"
+
 
 case "$1" in
     up)

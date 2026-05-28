@@ -10,7 +10,10 @@ hint.pcm.1.eq=1
 hint.pcm.2.eq=1
 
 # HTCP TCP Congestion Control
-cc_htcp_load="YES"
+#cc_htcp_load="YES"
+
+# TCP BBR
+tcp_bbr_load="YES"
 
 # CPU
 cpu_microcode_load="YES"

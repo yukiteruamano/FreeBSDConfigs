@@ -29,17 +29,16 @@ net.inet.icmp.drop_redirect=1                   # Drop de ICMP
 net.inet.tcp.drop_synfin=1                      # Drop de SYN FIN
 net.inet.ip.random_id=1                         # Asignacion aleatorio de ID IP
 net.inet.ip.process_options=0
-net.inet.tcp.nolocaltimewait=1
 net.inet.tcp.icmp_may_rst=0
 net.inet.tcp.path_mtu_discovery=1
-#net.inet.tcp.mssdflt=1400
 
 # The OS buffer / backlog queue depth for accepting new TCP connections
 # Default: 128
-kern.ipc.somaxconn=1024
+kern.ipc.somaxconn=2048
 
 # Change to BBR for better performance
-net.inet.tcp.cc.algorithm=htcp
+#net.inet.tcp.cc.algorithm=htcp
+net.inet.tcp.functions_default=bbr
 
 ## IPv6 Security
 ## Desactiva varias opciones de IPv6
@@ -49,14 +48,16 @@ net.inet6.ip6.use_tempaddr=1
 net.inet6.ip6.prefer_tempaddr=1
 net.inet6.icmp6.rediraccept=0
 net.inet6.ip6.accept_rtadv=0
-net.inet6.ip6.auto_linklocal=0
+net.inet6.ip6.auto_linklocal=1
 net.inet6.ip6.redirect=0
 
 
 #################################################################################
 ## Tweaks para el sistema
 
-kern.sched.preempt_thresh=200                   # Preemptiness for kernel
+kern.sched.preempt_thresh=180                   # Preemptiness for kernel (160 - 224)
+kern.sched.slice=8
+kern.sched.interact=45
 vfs.usermount=1                                 # Automontaje para usuarios
 
 # Akonadi y daemons con alto trafico en local streams
@@ -79,6 +80,7 @@ hw.snd.default_unit=2
 # Audio equalizer
 # Aplicado al PCM por defecto (built-in sound-card)
 dev.pcm.0.eq=1
+dev.pcm.1.eq=1
 dev.pcm.2.eq=1
 
 # Mejor calidad en el EQ

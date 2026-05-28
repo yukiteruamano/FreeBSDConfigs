@@ -1,0 +1,2 @@
+/usr/bin/wg syncconf wg0 /usr/local/etc/wireguard/wg0.conf
+

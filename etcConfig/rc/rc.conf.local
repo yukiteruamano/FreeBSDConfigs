@@ -1,5 +1,6 @@
 # Kernel modules
-kld_list="${kld_list} aesni coretemp cpuctl fusefs cuse i915kms acpi_video"
+kld_list="${kld_list} aesni coretemp cpuctl fusefs cuse i915kms acpi_video if_iwx"
+devmatch_blocklist="if_iwlwifi"
 
 # devfs rules
 devfs_system_ruleset="devfsrules_common"
@@ -26,8 +27,26 @@ webcamd_enable="YES"
 webcamd_0_flags="-N CNFHH53Q253440044750-IntegratedWebcamHD"
 
 # Wireguard
-wireguard_enable="YES"
-wireguard_interfaces="wg0"
+
+# Using wg-quick
+#wireguard_enable="YES"
+#wireguard_interfaces="wg0"
+
+# Using rc.conf
+cloned_interfaces="wg0"
+
+# your point to point subnet, adjust as needed
+ifconfig_wg0="inet 10.0.0.2/32 mtu 1420 up"
+
+# Rutas
+static_routes="wg_endpoint wg_default wg_default2"
+
+# the other end of the wg tunnel and your normal gateway
+route_wg_endpoint="-inet 10.0.0.1 -gateway 192.168.10.1"
+
+# default routei for v4
+route_wg_default="-net 0.0.0.0/1 -iface wg0"
+route_wg_default2="-inet 128.0.0.0/1 -iface wg0"
 
 # Anacron
 anacron_enable=YES
@@ -42,5 +61,4 @@ nfsuserd_flags="-domain home.arpa"
 # VM-Bhyve
 #vm_enable="YES"
 #vm_dir="zfs:poudrierezfs/vm-bhyve"
-
 
