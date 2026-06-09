@@ -29,7 +29,7 @@ case "$1" in
 
         # 3. Autenticación
         if ! pgrep -q wpa_supplicant; then
-            wpa_supplicant -s -B -i $WLAN_IF -c /etc/wpa_supplicant.conf
+            wpa_supplicant -s -B -i $WLAN_IF -c /usr/local/etc/wpa_supplicant.d/wpa_homemp_2ax.conf
             sleep 1
         fi
 
